@@ -6,7 +6,7 @@
     <version>$version$</version>
     <authors>Dude Solutions, Inc.</authors>
     <owners>Dude Solutions, Inc.</owners>
-    <copyright>Copyright © 2015 Dude Solutions, Inc. - All Rights Reserved</copyright>
+    <copyright>Copyright Â© 2015 Dude Solutions, Inc. - All Rights Reserved</copyright>
      <projectUrl>https://github.com/DudeSolutions/DudeSecurityApi</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Auto Generated Security API SDK</description>
@@ -19,7 +19,7 @@
 		  <dependency id="Microsoft.Net.Http" version="2.2.29" />
 		  <dependency id="Newtonsoft.Json" version="6.0.8" />
 		  <dependency id="Microsoft.Bcl.Async" version="1.0.168" />
-		  <dependency id="Unirest-API" version="1.0.7.1" />
+		  <dependency id="Unirest-APIMATIC" version="1.0.0.2" />
       </group>
     </dependencies>
   </metadata>
