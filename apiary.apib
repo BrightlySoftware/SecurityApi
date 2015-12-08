@@ -72,10 +72,10 @@ Any response that does not provide a ```200 OK``` response code should be treate
     + Attributes (Heartbeat)
 
 # Group Master Data
-The master data collection allows for integration between the Dude Platform and the dude's other system of records.
+The master data collection allows for integration between the Dude Platform and Dude Solutions' other system of records.
 
 ## Get User [/masterdata/users/{userName}]
-The get user is exposed and provided to return a dude platform user from a system of record user name.
+The get user is exposed and provided to return a Dude Platform user from a system of record user name.
 Any response that does not provide a ```200 OK``` response should be treated as an error.
 + Parameters
     + `userName` (string, required) - The name of the user from the system of record.
@@ -85,7 +85,7 @@ Any response that does not provide a ```200 OK``` response should be treated as 
     + Attributes (UserDetail)
 
 ## Get Account [/masterdata/accounts/{accountNumber}]
-The get account is exposed and provided to return a dude platform account from a system of record account id.
+The get account is exposed and provided to return a Dude Platform account from a system of record account id.
 Any response that does not provide a ```200 OK``` response should be treated as an error.
 + Parameters
     + `accountNumber` (string, required) - The account number for the system of record account.
@@ -95,7 +95,7 @@ Any response that does not provide a ```200 OK``` response should be treated as 
     + Attributes (Account)
 
 ## Get Product [/masterdata/products/{productId}]
-The get product is exposed and provided to return a dude platform product from a system of record product id.
+The get product is exposed and provided to return a Dude Platform product from a system of record product id.
 Any response that does not provide a ```200 OK``` response should be treated as an error.
 + Parameters
     + `productId` (number, required) - The product Id from the system of record.
@@ -105,12 +105,12 @@ Any response that does not provide a ```200 OK``` response should be treated as 
     + Attributes (Asset)
 
 ## Add User System of Record Map [/masterdata/{sourceAbbreviation}/users/{userName}/map/{userSummaryId}]
-The add user system of record map is exposed and provided to create a system of record user map between the dude platform user and the system of record user name.
+The add user system of record map is exposed and provided to create a system of record user map between the Dude Platform user and the system of record user name.
 Any response that does not provide a ```201 Created``` response should be treated as an error.
 + Parameters
     + `sourceAbbreviation` (string, required) - The system of record source abbreviation.
     + `userName` (string, required) - The user name from the system of record.
-    + `userSummaryId` (number, required) - The dude platform user to map too.
+    + `userSummaryId` (number, required) - The Dude Platform user to map too.
 
 ### Add User System of Record Map [POST]
 + Response 201 (application/json)
