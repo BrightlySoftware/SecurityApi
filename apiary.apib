@@ -2,13 +2,14 @@ FORMAT: 1A
 HOST: https://www.dudeauth.com
 
 GENERATEASYNCCODE: TRUE
+GENERATEINTERFACES: TRUE
 USEMETHODPREFIX: TRUE
 USEMODELPOSTFIX: FALSE
 USECONTROLLERPOSTFIX: FALSE
 USEENUMPOSTFIX: FALSE
 USECONSTRUCTORSFORCONFIG: TRUE
-CSHARPDEFAULTNAMESPACE: DSI.SDK.<ApiName>
-JAVADEFAULTNAMESPACE: io.dudesolutions.<ApiName>
+CSHARPDEFAULTNAMESPACE: DSI.SDK.Security
+JAVADEFAULTNAMESPACE: io.dudesolutions.security
 BRANDLABEL: Dude Solutions, Inc.
 USERAGENT: Dude SDK
 
@@ -38,7 +39,7 @@ In addition to standard response codes the response object returned from the ser
             "dudeReferenceId": "3523845A-4729-4CCB-9E16-01DEADF6C2DF",
             "stackTrace": "Null, Typically"
         }
-        
+
 ## Data Restriction
 Depending on the access level granted to the calling client certain data elements throughout this API will be removed and not returned.
 
@@ -63,12 +64,57 @@ Any response that does not provide a ```200 OK``` response code should be treate
 
 + Response 200 (application/json)
     + Headers
-    
+
             X-Dude-Api-Limit: Unlimited or Number
             X-Dude-Api-Remaining: Unlimited or Number
             X-Dude-Api-Server: Api Server ID
-            
+
     + Attributes (Heartbeat)
+
+# Group Master Data
+The master data collection allows for integration between the Dude Platform and Dude Solutions' other system of records.
+
+## Get User [/masterdata/users/{userName}]
+The get user is exposed and provided to return a Dude Platform user from a system of record user name.
+Any response that does not provide a ```200 OK``` response should be treated as an error.
++ Parameters
+    + `userName` (string, required) - The name of the user from the system of record.
+
+### Get User [GET]
++ Response 200 (application/json)
+    + Attributes (UserDetail)
+
+## Get Account [/masterdata/accounts/{accountNumber}]
+The get account is exposed and provided to return a Dude Platform account from a system of record account id.
+Any response that does not provide a ```200 OK``` response should be treated as an error.
++ Parameters
+    + `accountNumber` (string, required) - The account number for the system of record account.
+
+### Get Account [GET]
++ Response 200 (application/json)
+    + Attributes (Account)
+
+## Get Product [/masterdata/products/{productId}]
+The get product is exposed and provided to return a Dude Platform product from a system of record product id.
+Any response that does not provide a ```200 OK``` response should be treated as an error.
++ Parameters
+    + `productId` (number, required) - The product Id from the system of record.
+
+### Get Product [GET]
++ Response 200 (application/json)
+    + Attributes (Asset)
+
+## Add User System of Record Map [/masterdata/{sourceAbbreviation}/users/{userName}/map/{userSummaryId}]
+The add user system of record map is exposed and provided to create a system of record user map between the Dude Platform user and the system of record user name.
+Any response that does not provide a ```201 Created``` response should be treated as an error.
++ Parameters
+    + `sourceAbbreviation` (string, required) - The system of record source abbreviation.
+    + `userName` (string, required) - The user name from the system of record.
+    + `userSummaryId` (number, required) - The Dude Platform user to map too.
+
+### Add User System of Record Map [POST]
++ Response 201 (application/json)
+    + Attributes (SystemOfRecordUser)
 
 # Data Structures
 
@@ -77,3 +123,123 @@ Represents a heartbeat response.
 
 ### Properties
 + `vitalCheck`: true (boolean, required) - Vital check to ensure something is online.
+
+## UserDetail (object)
+Represents a UserDetail object
+
+### Properties
++ `id` (number, required) - The unique ID for the UserDetail.
++ `firstName` (string, required) - The first name of the user.
++ `lastName` (string, required) - The last name of the user.
++ `email` (string, required) - The email address for the user.
++ `hourlyRate` (number, optional) - The hourly Rate
++ `phones` (UserPhone, required) - The collection of phone numbers for the user.
++ `createdByUser` (User, optional) - The user who created the object.
++ `createdDateTime` (string, optional) - The UTC date and time the object was created.
++ `createdByApiClient` (ClientInfo, required) - The API Client who created the object.
++ `updatedByUser` (User, optional) - The user who last updated the object.
++ `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
++ `updatedByApiClient` (ClientInfo, required) - The API Client that last updated the object.
+
+## User (object)
+Represents a user.
+
+### Properties
++ `id` (number, required) - The unique ID that represents the user.
++ `firstName` (string, required) - The first name of the user.
++ `lastName` (string, required) - The last name of the user.
++ `email` (string, required) - The email of the user.
+
+## UserPhone (object)
+Represents a UserPhone object
+
+### Properties
++ `id` (number, required) - The unique ID that represents the userPhone.
++ `type` (number, required) - The type of the phone record.
++ `number` (string, required) - The number.
++ `extension` (string, optional) - The extension.
+
+## ClientInfo (object)
+Represents the API Client object
+
+### Properties
++ `id` (number, required) - The unique ID that represents the API client.
+
+## Account (object)
+Represents a Dude Platform account
+
+### Properties
++ `id` (number, required) - The unique ID for the account.
++ `name` (string, required) - The name of the account.
++ `number` (number, required) - The number for the account.
++ `contactFirstName` (string, optional) - The first name of the contact person.
++ `contactMiddleName` (string, optional) - The middle name of the contact person.
++ `contactLastName` (string, optional) - The last name of the contact person.
++ `contactPhoneNumber` (string, optional) - The phone number for the contact person.
++ `contactEmailAddress` (string, optional) - The email address for the contact person.
++ `location` (Location, required) - The location for the account.
++ `market` (Market, required) - The market for the account.
++ `timeZone` (string, required) - The time zone for the account.
++ `systemOfRecordAccount` (SystemOfRecordAccount, optional) - The system of record account.
++ `assets` (Asset, required) - The collection of assets the account owns.
++ `createdByUser` (User, optional) - The user who created the object.
++ `createdDateTime` (string, optional) - The UTC date and time the object was created.
++ `createdByApiClient` (ClientInfo, required) - The API Client who created the object.
++ `updatedByUser` (User, optional) - The user who last updated the object.
++ `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
++ `updatedByApiClient` (ClientInfo, required) - The API Client that last updated the object.
+
+## Asset (object)
+Represents a product
+
+### Properties
++ `id` (number, required) - The unique ID for the product.
++ `name` (string, required) - The name of the product.
++ `url` (number, required) - The url for the product.
+
+## Location (object)
+Represents a geo-location point
+
+### Properties
++ `latitude` (number, optional) - The latitude for the location.
++ `longitude` (number, optional) - The longitude of the location.
++ `streetAddress` (string, optional) - The street address for the location.
++ `streetAddressLine2` (string, optional) - The second, optional line for street address for the location.
++ `city` (string, required) - The city for the location.
++ `region` (string, required) - The region for the location.
++ `postalCode` (string, required) - The postal code for the location.
++ `country` (string, required) - The country for the location.
+
+## Market (object)
+Represents a market object
+
+### Properties
++ `id` (number, required) - The unique ID for the market.
++ `name` (string, required) - The name of the market.
++ `marketDescription` (string, required) - The description for the market.
++ `createdByUser` (User, optional) - The user who created the object.
++ `createdDateTime` (string, optional) - The UTC date and time the object was created.
++ `updatedByUser` (User, optional) - The user who last updated the object.
++ `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
+
+## SystemOfRecordAccount (object)
+Represents a system of record account
+
+### Properties
++ `accountNumber` (number, required) - The account number for the system of record.
++ `sourceAbbreviation` (string, required) - The source abbreviation for the system of record (like SD for School Dude or FD for Facility Dude).
++ `accountGarden` (string, required) - The account garden from the system of record.
+
+## SystemOfRecordUser (object)
+Represents a system of record user
+
+### Properties
++ `userName` (string, required) - The user name for the system of record user.
++ `sourceAbbreviation` (string, required) - The the source abbreviation for the system of record(like SD for School Dude or FD for Facility Dude).
++ `userSummaryId` (number, required) - The dude platform user.
++ `createdByUser` (User, optional) - The user who created the object.
++ `createdDateTime` (string, optional) - The UTC date and time the object was created.
++ `createdByApiClient` (ClientInfo, required) - The API Client who created the object.
++ `updatedByUser` (User, optional) - The user who last updated the object.
++ `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
++ `updatedByApiClient` (ClientInfo, required) - The API Client that last updated the object.
