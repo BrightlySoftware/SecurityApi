@@ -71,6 +71,39 @@ Any response that does not provide a ```200 OK``` response code should be treate
 
     + Attributes (Heartbeat)
 
+# Group User
+
+## User Collection [/accounts/{accountId}/users/{id}]
+
++ Parameters
+  + accountId: 1234567890 (number, required) - The Dude Platform account the user belongs too.
+  + id: 1234567890 (number, required) - The Dude Platform User Id that represents the user.
+
+### GET
+
++ Response 200 (application/json)
+  + Attributes (UserDetail)
+
+### PUT
+
++ Response 201 (application/json)
+  + Attributes (User)
+
+### DELETE
+
++ Response 201
+  + Attributes (User)
+
+## Get Users [/accounts/{accountId}/users]
+This endpoint gets a list of Dude Platform users for the account.
+
++ Parameters
+  + accountId: 1234567890 (number, required) - The Dude Platform account the user belongs too.
+
+### Get Users [GET]
++ Response 200 (application/json)
+  + Attributes (array[User])
+
 # Group Master Data
 The master data collection allows for integration between the Dude Platform and Dude Solutions' other system of records.
 
@@ -130,7 +163,7 @@ Any response that does not provide a ```201 Created``` response should be treate
 + Parameters
     + accountId: 1234567890 (required, number) - ID of the account in the form of an integer
 
-### GET 
+### GET
 
 + Response 200 (application/json)
     + Attributes (Base Collection Response)
@@ -156,8 +189,6 @@ Any response that does not provide a ```201 Created``` response should be treate
 
 + Response 204
 
-    
-### 
 
 # Data Structures
 
