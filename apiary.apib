@@ -1,6 +1,7 @@
 FORMAT: 1A
 HOST: https://www.dudeauth.com
 
+USECOMMONSDKLIBRARY: TRUE
 GENERATEASYNCCODE: TRUE
 GENERATEINTERFACES: TRUE
 USEMETHODPREFIX: TRUE
@@ -76,7 +77,7 @@ Any response that does not provide a ```200 OK``` response code should be treate
 ## Account Collection [/accounts/{accountId}]
 
 + Parameters
-  + accountId: 1234567890 (number, required) - The Dude Platform account the user belongs too.
+  + accountId: 1234567890 (number, required) - #INT The Dude Platform account id.
 
 ### GET
 
@@ -88,8 +89,8 @@ Any response that does not provide a ```200 OK``` response code should be treate
 ## User Collection [/accounts/{accountId}/users/{id}]
 
 + Parameters
-  + accountId: 1234567890 (number, required) - The Dude Platform account the user belongs too.
-  + id: 1234567890 (number, required) - The Dude Platform User Id that represents the user.
+  + accountId: 1234567890 (number, required) - #INT The Dude Platform account the user belongs too.
+  + id: 1234567890 (number, required) - #INT The Dude Platform User Id that represents the user.
 
 ### GET
 
@@ -110,7 +111,7 @@ Any response that does not provide a ```200 OK``` response code should be treate
 This endpoint gets a list of Dude Platform users for the account.
 
 + Parameters
-  + accountId: 1234567890 (number, required) - The Dude Platform account the user belongs too.
+  + accountId: 1234567890 (number, required) - #INT The Dude Platform account the user belongs too.
 
 ### Get Users [GET]
 + Response 200 (application/json)
@@ -136,7 +137,7 @@ The get account is exposed and provided to return a Dude Platform account from a
 Any response that does not provide a ```200 OK``` response should be treated as an error.
 
 + Parameters
-  + accountNumber: 1234567890 (string, required) - The account number for the system of record account.
+  + accountNumber: 1234567890 (string, required) - #INT The account number for the system of record account.
   + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
 
 ### Get Account [GET]
@@ -148,7 +149,7 @@ The get product is exposed and provided to return a Dude Platform product from a
 Any response that does not provide a ```200 OK``` response should be treated as an error.
 
 + Parameters
-  + productId: MD (number, required) - The product Id from the system of record.
+  + productId: MD (string, required) - The product Id from the system of record.
   + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
 
 ### Get Product [GET]
@@ -162,7 +163,7 @@ Any response that does not provide a ```201 Created``` response should be treate
 + Parameters
     + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
     + userName: wade41 (string, required) - The user name from the system of record.
-    + userSummaryId: 1234567890 (number, required) - The Dude Platform user to map too.
+    + userSummaryId: 1234567890 (number, required) - #INT The Dude Platform user to map too.
 
 ### Add User System of Record Map [POST]
 + Response 201 (application/json)
@@ -173,7 +174,7 @@ Any response that does not provide a ```201 Created``` response should be treate
 ## Account Product Collection [/accounts/{accountId}/products]
 
 + Parameters
-    + accountId: 1234567890 (required, number) - ID of the account in the form of an integer
+    + accountId: 1234567890 (required, number) - #INT ID of the account in the form of an integer
 
 ### GET
 
@@ -189,8 +190,8 @@ Any response that does not provide a ```201 Created``` response should be treate
 ## Account Product Detail [/accounts/{accountId}/products/{id}]
 
 + Parameters
-    + accountId: 1234567890 (required, number) - ID of the account in the form of an integer
-    + id: 12345 (required, number) - ID of the product in the form of an integer
+    + accountId: 1234567890 (required, number) - #INT ID of the account in the form of an integer
+    + id: 12345 (required, number) - #INT ID of the product in the form of an integer
 
 ### GET
 
