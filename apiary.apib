@@ -117,6 +117,41 @@ This endpoint gets a list of Dude Platform users for the account.
 + Response 200 (application/json)
   + Attributes (array[User])
 
+# Group Account Products
+
+## Account Product Collection [/accounts/{accountId}/products{?q}]
+
++ Parameters
+    + accountId: 1234567890 (required, number) - #INT ID of the account in the form of an integer
+    + q: Sample (string, optional) - Queries product name containing this value
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + data (required, array[Product]) - The Product response collection.
+
+### POST
+
++ Response 201 (application/json)
+    + Attributes (Asset Account)
+
+## Account Product Detail [/accounts/{accountId}/products/{id}]
+
++ Parameters
+    + accountId: 1234567890 (required, number) - #INT ID of the account in the form of an integer
+    + id: 12345 (required, number) - #INT ID of the product in the form of an integer
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Asset Account)
+
+### DELETE
+
++ Response 204
+
+
 # Group Master Data
 The master data collection allows for integration between the Dude Platform and Dude Solutions' other system of records.
 
@@ -168,40 +203,6 @@ Any response that does not provide a ```201 Created``` response should be treate
 ### Add User System of Record Map [POST]
 + Response 201 (application/json)
     + Attributes (SystemOfRecordUser)
-
-# Group Account Products
-
-## Account Product Collection [/accounts/{accountId}/products]
-
-+ Parameters
-    + accountId: 1234567890 (required, number) - #INT ID of the account in the form of an integer
-
-### GET
-
-+ Response 200 (application/json)
-    + Attributes (Base Collection Response)
-        + data (required, array[Product]) - The Product response collection.
-
-### POST
-
-+ Response 201 (application/json)
-    + Attributes (Asset Account)
-
-## Account Product Detail [/accounts/{accountId}/products/{id}]
-
-+ Parameters
-    + accountId: 1234567890 (required, number) - #INT ID of the account in the form of an integer
-    + id: 12345 (required, number) - #INT ID of the product in the form of an integer
-
-### GET
-
-+ Response 200 (application/json)
-    + Attributes (Asset Account)
-
-### DELETE
-
-+ Response 204
-
 
 # Data Structures
 
