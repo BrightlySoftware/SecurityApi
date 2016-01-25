@@ -204,40 +204,6 @@ Any response that does not provide a ```201 Created``` response should be treate
 + Response 201 (application/json)
     + Attributes (SystemOfRecordUser)
 
-# Group Account Products
-
-## Account Product Collection [/accounts/{accountId}/products]
-
-+ Parameters
-    + accountId: 1234567890 (required, number) - #INT ID of the account in the form of an integer
-
-### GET
-
-+ Response 200 (application/json)
-    + Attributes (Base Collection Response)
-        + data (required, array[Product]) - The Product response collection.
-
-### POST
-
-+ Response 201 (application/json)
-    + Attributes (Asset Account)
-
-## Account Product Detail [/accounts/{accountId}/products/{id}]
-
-+ Parameters
-    + accountId: 1234567890 (required, number) - #INT ID of the account in the form of an integer
-    + id: 12345 (required, number) - #INT ID of the product in the form of an integer
-
-### GET
-
-+ Response 200 (application/json)
-    + Attributes (Asset Account)
-
-### DELETE
-
-+ Response 204
-
-
 # Data Structures
 
 ## Heartbeat (object)
