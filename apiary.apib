@@ -1,6 +1,7 @@
 FORMAT: 1A
 HOST: https://www.dudeauth.com
 
+USECOMMONSDKLIBRARY: TRUE
 GENERATEASYNCCODE: TRUE
 GENERATEINTERFACES: TRUE
 USEMETHODPREFIX: TRUE
@@ -71,6 +72,51 @@ Any response that does not provide a ```200 OK``` response code should be treate
 
     + Attributes (Heartbeat)
 
+# Group Account
+
+## Account Collection [/accounts/{accountId}]
+
++ Parameters
+  + accountId: 1234567890 (number, required) - #INT The Dude Platform account id.
+
+### GET
+
++ Response 200 (application/json)
+  + Attributes (Account)
+
+# Group User
+
+## User Collection [/accounts/{accountId}/users/{id}]
+
++ Parameters
+  + accountId: 1234567890 (number, required) - #INT The Dude Platform account the user belongs too.
+  + id: 1234567890 (number, required) - #INT The Dude Platform User Id that represents the user.
+
+### GET
+
++ Response 200 (application/json)
+  + Attributes (UserDetail)
+
+### PUT
+
++ Response 201 (application/json)
+  + Attributes (User)
+
+### DELETE
+
++ Response 201
+  + Attributes (User)
+
+## Get Users [/accounts/{accountId}/users]
+This endpoint gets a list of Dude Platform users for the account.
+
++ Parameters
+  + accountId: 1234567890 (number, required) - #INT The Dude Platform account the user belongs too.
+
+### Get Users [GET]
++ Response 200 (application/json)
+  + Attributes (array[User])
+
 # Group Master Data
 The master data collection allows for integration between the Dude Platform and Dude Solutions' other system of records.
 
@@ -91,7 +137,7 @@ The get account is exposed and provided to return a Dude Platform account from a
 Any response that does not provide a ```200 OK``` response should be treated as an error.
 
 + Parameters
-  + accountNumber: 1234567890 (string, required) - The account number for the system of record account.
+  + accountNumber: 1234567890 (string, required) - #INT The account number for the system of record account.
   + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
 
 ### Get Account [GET]
@@ -103,12 +149,12 @@ The get product is exposed and provided to return a Dude Platform product from a
 Any response that does not provide a ```200 OK``` response should be treated as an error.
 
 + Parameters
-  + productId: MD (number, required) - The product Id from the system of record.
+  + productId: MD (string, required) - The product Id from the system of record.
   + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
 
 ### Get Product [GET]
 + Response 200 (application/json)
-    + Attributes (Asset)
+    + Attributes (Product)
 
 ## Add User System of Record Map [/masterdata/{sourceAbbreviation}/users/{userName}/map/{userSummaryId}]
 The add user system of record map is exposed and provided to create a system of record user map between the Dude Platform user and the system of record user name.
@@ -117,11 +163,45 @@ Any response that does not provide a ```201 Created``` response should be treate
 + Parameters
     + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
     + userName: wade41 (string, required) - The user name from the system of record.
-    + userSummaryId: 1234567890 (number, required) - The Dude Platform user to map too.
+    + userSummaryId: 1234567890 (number, required) - #INT The Dude Platform user to map too.
 
 ### Add User System of Record Map [POST]
 + Response 201 (application/json)
     + Attributes (SystemOfRecordUser)
+
+# Group Account Products
+
+## Account Product Collection [/accounts/{accountId}/products]
+
++ Parameters
+    + accountId: 1234567890 (required, number) - #INT ID of the account in the form of an integer
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + data (required, array[Product]) - The Product response collection.
+
+### POST
+
++ Response 201 (application/json)
+    + Attributes (Asset Account)
+
+## Account Product Detail [/accounts/{accountId}/products/{id}]
+
++ Parameters
+    + accountId: 1234567890 (required, number) - #INT ID of the account in the form of an integer
+    + id: 12345 (required, number) - #INT ID of the product in the form of an integer
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Asset Account)
+
+### DELETE
+
++ Response 204
+
 
 # Data Structures
 
@@ -130,6 +210,14 @@ Represents a heartbeat response.
 
 ### Properties
 + `vitalCheck`: true (boolean, required) - Vital check to ensure something is online.
+
+## Base Collection Response (object)
+
+### Properties
++ `page`: 1 (number, required) - The current page provided in the response data.
++ `pageSize`: 1000 (number, required) - The page size returned in the response data.
++ `dataSize`: 1000 (number, required) - The total records returned in the response.
++ `total`: 2000 (number, required) - The total number of records available in the collection.
 
 ## UserDetail (object)
 Represents a UserDetail object
@@ -140,7 +228,8 @@ Represents a UserDetail object
 + `lastName` (string, required) - The last name of the user.
 + `email` (string, required) - The email address for the user.
 + `hourlyRate` (number, optional) - The hourly Rate
-+ `phones` (UserPhone, required) - The collection of phone numbers for the user.
++ `phones` (array[UserPhone], optional) - The collection of phone numbers for the user.
++ `systemOfRecordUser` (SystemOfRecordUser, optional) - The system of record user record.
 + `createdByUser` (User, optional) - The user who created the object.
 + `createdDateTime` (string, optional) - The UTC date and time the object was created.
 + `createdByApiClient` (ClientInfo, required) - The API Client who created the object.
@@ -188,7 +277,7 @@ Represents a Dude Platform account
 + `market` (Market, required) - The market for the account.
 + `timeZone` (string, required) - The time zone for the account.
 + `systemOfRecordAccount` (SystemOfRecordAccount, optional) - The system of record account.
-+ `assets` (Asset, required) - The collection of assets the account owns.
++ `assets` (Product, required) - The collection of assets the account owns.
 + `createdByUser` (User, optional) - The user who created the object.
 + `createdDateTime` (string, optional) - The UTC date and time the object was created.
 + `createdByApiClient` (ClientInfo, required) - The API Client who created the object.
@@ -196,7 +285,20 @@ Represents a Dude Platform account
 + `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
 + `updatedByApiClient` (ClientInfo, required) - The API Client that last updated the object.
 
-## Asset (object)
+## Asset Account (object)
+Represents a product account association
+
+### Properties
++ `account` (Account, required) - The account.
++ `asset` (Product, required) - The product.
++ `createdByUser` (User, optional) - The user who created the object.
++ `createdDateTime` (string, optional) - The UTC date and time the object was created.
++ `createdByApiClient` (ClientInfo, required) - The API Client who created the object.
++ `updatedByUser` (User, optional) - The user who last updated the object.
++ `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
++ `updatedByApiClient` (ClientInfo, required) - The API Client that last updated the object.
+
+## Product (object)
 Represents a product
 
 ### Properties
