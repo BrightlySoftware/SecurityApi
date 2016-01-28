@@ -77,7 +77,7 @@ Any response that does not provide a ```200 OK``` response code should be treate
 ## Account Collection [/accounts/{accountId}]
 
 + Parameters
-  + accountId: 1234567890 (number, required) - #INT The Dude Platform account id.
+  + accountId: 1234567890 (number, required) - {INT} The Dude Platform account id.
 
 ### GET
 
@@ -89,8 +89,8 @@ Any response that does not provide a ```200 OK``` response code should be treate
 ## User Collection [/accounts/{accountId}/users/{id}]
 
 + Parameters
-  + accountId: 1234567890 (number, required) - #INT The Dude Platform account the user belongs too.
-  + id: 1234567890 (number, required) - #INT The Dude Platform User Id that represents the user.
+  + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
+  + id: 1234567890 (number, required) - {INT} The Dude Platform User Id that represents the user.
 
 ### GET
 
@@ -111,7 +111,7 @@ Any response that does not provide a ```200 OK``` response code should be treate
 This endpoint gets a list of Dude Platform users for the account.
 
 + Parameters
-  + accountId: 1234567890 (number, required) - #INT The Dude Platform account the user belongs too.
+  + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
 
 ### Get Users [GET]
 + Response 200 (application/json)
@@ -122,7 +122,7 @@ This endpoint gets a list of Dude Platform users for the account.
 ## Account Product Collection [/accounts/{accountId}/products{?q}]
 
 + Parameters
-    + accountId: 1234567890 (required, number) - #INT ID of the account in the form of an integer
+    + accountId: 1234567890 (required, number) - {INT} ID of the account in the form of an integer
     + q: Sample (string, optional) - Queries product name containing this value
 
 ### GET
@@ -139,8 +139,8 @@ This endpoint gets a list of Dude Platform users for the account.
 ## Account Product Detail [/accounts/{accountId}/products/{id}]
 
 + Parameters
-    + accountId: 1234567890 (required, number) - #INT ID of the account in the form of an integer
-    + id: 12345 (required, number) - #INT ID of the product in the form of an integer
+    + accountId: 1234567890 (required, number) - {INT} ID of the account in the form of an integer
+    + id: 12345 (required, number) - {INT} ID of the product in the form of an integer
 
 ### GET
 
@@ -172,7 +172,7 @@ The get account is exposed and provided to return a Dude Platform account from a
 Any response that does not provide a ```200 OK``` response should be treated as an error.
 
 + Parameters
-  + accountNumber: 1234567890 (string, required) - #INT The account number for the system of record account.
+  + accountNumber: 1234567890 (string, required) - {INT} The account number for the system of record account.
   + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
 
 ### Get Account [GET]
@@ -198,7 +198,7 @@ Any response that does not provide a ```201 Created``` response should be treate
 + Parameters
     + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
     + userName: wade41 (string, required) - The user name from the system of record.
-    + userSummaryId: 1234567890 (number, required) - #INT The Dude Platform user to map too.
+    + userSummaryId: 1234567890 (number, required) - {INT} The Dude Platform user to map too.
 
 ### Add User System of Record Map [POST]
 + Response 201 (application/json)
@@ -215,16 +215,16 @@ Represents a heartbeat response.
 ## Base Collection Response (object)
 
 ### Properties
-+ `page`: 1 (number, required) - #INT The current page provided in the response data.
-+ `pageSize`: 1000 (number, required) - #INT The page size returned in the response data.
-+ `dataSize`: 1000 (number, required) - #INT The total records returned in the response.
-+ `total`: 2000 (number, required) - #INT The total number of records available in the collection.
++ `page`: 1 (number, required) - {INT} The current page provided in the response data.
++ `pageSize`: 1000 (number, required) - {INT} The page size returned in the response data.
++ `dataSize`: 1000 (number, required) - {INT} The total records returned in the response.
++ `total`: 2000 (number, required) - {INT} The total number of records available in the collection.
 
 ## UserDetail (object)
 Represents a UserDetail object
 
 ### Properties
-+ `id` (number, required) - #INT The unique ID for the UserDetail.
++ `id` (number, required) - {INT} The unique ID for the UserDetail.
 + `firstName` (string, required) - The first name of the user.
 + `lastName` (string, required) - The last name of the user.
 + `email` (string, required) - The email address for the user.
@@ -242,7 +242,7 @@ Represents a UserDetail object
 Represents a user.
 
 ### Properties
-+ `id` (number, required) - #INT The unique ID that represents the user.
++ `id` (number, required) - {INT} The unique ID that represents the user.
 + `firstName` (string, required) - The first name of the user.
 + `lastName` (string, required) - The last name of the user.
 + `email` (string, required) - The email of the user.
@@ -251,8 +251,8 @@ Represents a user.
 Represents a UserPhone object
 
 ### Properties
-+ `id` (number, required) - #INT The unique ID that represents the userPhone.
-+ `type` (number, required) - #INT The type of the phone record.
++ `id` (number, required) - {INT} The unique ID that represents the userPhone.
++ `type` (number, required) - {INT} The type of the phone record.
 + `number` (string, required) - The number.
 + `extension` (string, optional) - The extension.
 
@@ -260,15 +260,15 @@ Represents a UserPhone object
 Represents the API Client object
 
 ### Properties
-+ `id` (number, required) - #INT The unique ID that represents the API client.
++ `id` (number, required) - {INT} The unique ID that represents the API client.
 
 ## Account (object)
 Represents a Dude Platform account
 
 ### Properties
-+ `id` (number, required) - #INT The unique ID for the account.
++ `id` (number, required) - {INT} The unique ID for the account.
 + `name` (string, required) - The name of the account.
-+ `number` (number, required) - #INT The number for the account.
++ `number` (number, required) - {INT} The number for the account.
 + `contactFirstName` (string, optional) - The first name of the contact person.
 + `contactMiddleName` (string, optional) - The middle name of the contact person.
 + `contactLastName` (string, optional) - The last name of the contact person.
@@ -303,7 +303,7 @@ Represents a product account association
 Represents a product
 
 ### Properties
-+ `id` (number, required) - #INT The unique ID for the product.
++ `id` (number, required) - {INT} The unique ID for the product.
 + `name` (string, required) - The name of the product.
 + `url` (string, required) - The url for the product.
 
@@ -324,7 +324,7 @@ Represents a geo-location point
 Represents a market object
 
 ### Properties
-+ `id` (number, required) - #INT The unique ID for the market.
++ `id` (number, required) - {INT} The unique ID for the market.
 + `name` (string, required) - The name of the market.
 + `marketDescription` (string, required) - The description for the market.
 + `createdByUser` (User, optional) - The user who created the object.
@@ -336,7 +336,7 @@ Represents a market object
 Represents a system of record account
 
 ### Properties
-+ `accountNumber` (number, required) - #INT The account number for the system of record.
++ `accountNumber` (number, required) - {INT} The account number for the system of record.
 + `sourceAbbreviation` (string, required) - The source abbreviation for the system of record (like SD for School Dude or FD for Facility Dude).
 + `accountGarden` (string, required) - The account garden from the system of record.
 
@@ -346,7 +346,7 @@ Represents a system of record user
 ### Properties
 + `userName` (string, required) - The user name for the system of record user.
 + `sourceAbbreviation` (string, required) - The the source abbreviation for the system of record(like SD for School Dude or FD for Facility Dude).
-+ `userSummaryId` (number, required) - #INT The dude platform user.
++ `userSummaryId` (number, required) - {INT} The dude platform user.
 + `createdByUser` (User, optional) - The user who created the object.
 + `createdDateTime` (string, optional) - The UTC date and time the object was created.
 + `createdByApiClient` (ClientInfo, required) - The API Client who created the object.
