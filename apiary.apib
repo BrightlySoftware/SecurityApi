@@ -204,7 +204,28 @@ Any response that does not provide a ```201 Created``` response should be treate
 + Response 201 (application/json)
     + Attributes (SystemOfRecordUser)
 
+# System Information
+
+## System Information [/]
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (System Information)
+
 # Data Structures
+
+## System Information (object)
++ `application`: `Dude Unified Api` (string, required) - The name of the application.
++ `version` : `1.0.0.0` (string, required) - The assembly version.
++ `apiVersion` : `1.0.0.0` (string, required) - The API version.
++ `vitals` (Heartbeat, required) - The state of the system dependencies.
++ `links` (array[System Links], required) - The API routes.
+
+## System Links (object)
++ `endpoint` : `WorkOrder` (string, required) - The name of the endpoint.
++ `action` : `Get` (string, required) - The REST action.
++ `route` : `/accounts/{accountId}/workorders` (string, required) - The route to the endpoint.
 
 ## Heartbeat (object)
 Represents a heartbeat response.
