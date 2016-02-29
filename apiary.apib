@@ -176,6 +176,17 @@ Any response that does not provide a ```200 OK``` response should be treated as 
 + Response 200 (application/json)
     + Attributes (UserDetail)
 
+## Get System Of Record User [/masterdata/platformusers/{userId}]
+The get system of record user is exposed and provided to return a system of record user from a Dude Platform user.
+Any response that does not provide a ```200 OK``` response should be treated as an error.
+
++ Parameters
+  + userId: 100234 (int, required) - The id of the Dude Platform user.
+
+### Get System Of Record User [GET]
++ Response 200 (application/json)
+    + Attributes (SystemOfRecordUser)
+
 ## Get Account [/masterdata/accounts/{accountNumber}{?sourceAbbreviation}]
 The get account is exposed and provided to return a Dude Platform account from a system of record account id.
 Any response that does not provide a ```200 OK``` response should be treated as an error.
