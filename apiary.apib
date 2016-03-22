@@ -83,10 +83,11 @@ Any response that does not provide a ```200 OK``` response code should be treate
 
 # Group Account
 
-## Account Collection [/accounts/{accountId}]
+## Account Collection [/accounts/{accountId}{?includeAudit}]
 
 + Parameters
   + accountId: 1234567890 (number, required) - {INT} The Dude Platform account id.
+  + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
 
@@ -95,11 +96,12 @@ Any response that does not provide a ```200 OK``` response code should be treate
 
 # Group User
 
-## User Collection [/accounts/{accountId}/users/{id}]
+## User Collection [/accounts/{accountId}/users/{id}{?includeAudit}]
 
 + Parameters
   + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
   + id: 1234567890 (number, required) - {INT} The Dude Platform User Id that represents the user.
+  + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
 
@@ -116,11 +118,12 @@ Any response that does not provide a ```200 OK``` response code should be treate
 + Response 201
   + Attributes (User)
 
-## Get Users [/accounts/{accountId}/users]
+## Get Users [/accounts/{accountId}/users{?includeAudit}]
 This endpoint gets a list of Dude Platform users for the account.
 
 + Parameters
   + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
+  + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### Get Users [GET]
 + Response 200 (application/json)
@@ -133,6 +136,7 @@ This endpoint gets a list of Dude Platform users for the account.
 + Parameters
     + accountId: 1234567890 (required, number) - {INT} ID of the account in the form of an integer
     + q: Sample (string, optional) - Queries product name containing this value
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
 
@@ -145,11 +149,12 @@ This endpoint gets a list of Dude Platform users for the account.
 + Response 201 (application/json)
     + Attributes (Asset Account)
 
-## Account Product Detail [/accounts/{accountId}/products/{id}]
+## Account Product Detail [/accounts/{accountId}/products/{id}{?includeAudit}]
 
 + Parameters
     + accountId: 1234567890 (required, number) - {INT} ID of the account in the form of an integer
     + id: 12345 (required, number) - {INT} ID of the product in the form of an integer
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
 
@@ -164,36 +169,39 @@ This endpoint gets a list of Dude Platform users for the account.
 # Group Master Data
 The master data collection allows for integration between the Dude Platform and Dude Solutions' other system of records.
 
-## Get User [/masterdata/users/{userName}{?sourceAbbreviation}]
+## Get User [/masterdata/users/{userName}{?sourceAbbreviation,includeAudit}]
 The get user is exposed and provided to return a Dude Platform user from a system of record user name.
 Any response that does not provide a ```200 OK``` response should be treated as an error.
 
 + Parameters
   + userName: wade41 (string, required) - The name of the user from the system of record.
   + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
+  + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### Get User [GET]
 + Response 200 (application/json)
     + Attributes (UserDetail)
 
-## Get System Of Record User [/masterdata/platformusers/{userId}]
+## Get System Of Record User [/masterdata/platformusers/{userId}{?includeAudit}]
 The get system of record user is exposed and provided to return a system of record user from a Dude Platform user.
 Any response that does not provide a ```200 OK``` response should be treated as an error.
 
 + Parameters
   + userId: 100234 (int, required) - The id of the Dude Platform user.
+  + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### Get System Of Record User [GET]
 + Response 200 (application/json)
     + Attributes (SystemOfRecordUser)
 
-## Get Account [/masterdata/accounts/{accountNumber}{?sourceAbbreviation}]
+## Get Account [/masterdata/accounts/{accountNumber}{?sourceAbbreviation,includeAudit}]
 The get account is exposed and provided to return a Dude Platform account from a system of record account id.
 Any response that does not provide a ```200 OK``` response should be treated as an error.
 
 + Parameters
   + accountNumber: 1234567890 (string, required) - {INT} The account number for the system of record account.
   + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
+  + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### Get Account [GET]
 + Response 200 (application/json)
@@ -206,12 +214,13 @@ Any response that does not provide a ```200 OK``` response should be treated as 
 + Parameters
   + productId: MD (string, required) - The product Id from the system of record.
   + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
+  + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### Get Product [GET]
 + Response 200 (application/json)
     + Attributes (Product)
 
-## Add User System of Record Map [/masterdata/{sourceAbbreviation}/users/{userName}/map/{userSummaryId}]
+## Add User System of Record Map [/masterdata/{sourceAbbreviation}/users/{userName}/map/{userSummaryId}{?includeAudit}]
 The add user system of record map is exposed and provided to create a system of record user map between the Dude Platform user and the system of record user name.
 Any response that does not provide a ```201 Created``` response should be treated as an error.
 
@@ -219,6 +228,7 @@ Any response that does not provide a ```201 Created``` response should be treate
     + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
     + userName: wade41 (string, required) - The user name from the system of record.
     + userSummaryId: 1234567890 (number, required) - {INT} The Dude Platform user to map too.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### Add User System of Record Map [POST]
 + Response 201 (application/json)
