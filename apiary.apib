@@ -255,9 +255,9 @@ Represents the System Information response.
 Represents the API routes.
 
 ### Properties
-+ `endpoint` : `WorkOrder` (string, required) - The name of the endpoint.
++ `endpoint` : `User` (string, required) - The name of the endpoint.
 + `action` : `Get` (string, required) - The REST action.
-+ `route` : `/accounts/{accountId}/workorders` (string, required) - The route to the endpoint.
++ `route` : `/accounts/{accountId}/users{?includeAudit}` (string, required) - The route to the endpoint.
 
 ## Heartbeat (object)
 Represents a heartbeat response.
@@ -275,11 +275,19 @@ Represents a paged object.
 + `total`: 2000 (number, required) - {INT} The total number of records available in the collection.
 
 ## Base Audit (object)
+Represents an auditable object with base properties.
+
+### Properties
 + `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The date and time in ISO-8601 format the record was created.
 + `createdByUser` (Base User, optional) - Information about the user who created the record.
-+ `createdByApiClient` (Base Client, optional) - Information about the client who created the record.
 + `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The date and time in ISO-8601 format the record was last updated.
 + `updatedByUser` (Base User, optional) - Information about the user who last modified the record.
+
+## Api Client Audit (Base Audit)
+Represents an auditable object with additional fields for api client.
+
+### Properties
++ `createdByApiClient` (Base Client, optional) - Information about the client who created the record.
 + `updatedByApiClient` (Base Client, optional) - Information about the client who last modified the record.
 
 ## Base User (object)
@@ -295,7 +303,7 @@ Represents a user with base properties.
 Represents a user with all properties included.
 
 ### Properties
-+ `hourlyRate` (number, optional) - The hourly Rate
++ `hourlyRate`: 25.50 (number, optional) - The hourly Rate
 + `phones` (array[UserPhone], optional) - The collection of phone numbers for the user.
 + `createdByUser` (Base User, optional) - The user who created the object.
 + `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The UTC date and time the object was created.
@@ -308,10 +316,10 @@ Represents a user with all properties included.
 Represents a UserPhone object
 
 ### Properties
-+ `id` (number, required) - {INT} The unique ID that represents the userPhone.
-+ `type` (number, required) - {INT} The type of the phone record.
-+ `number` (string, required) - The number.
-+ `extension` (string, optional) - The extension.
++ `id`: 1 (number, required) - {INT} The unique ID that represents the userPhone.
++ `type`: 1 (number, required) - {INT} The type of the phone record.
++ `number`: 9194593416 (string, required) - The number.
++ `extension`: 3416 (string, optional) - The extension.
 
 ## Base Client (object)
 Represents the API Client object with base properties.
@@ -319,29 +327,23 @@ Represents the API Client object with base properties.
 ### Properties
 + `id`: 1 (number, required) - {INT} The unique ID that represents the API client.
 
-## Account (object)
+## Account (Api Client Audit)
 Represents a Dude Platform account
 
 ### Properties
 + `id`: 1 (number, required) - {INT} The unique ID for the account.
-+ `name` (string, required) - The name of the account.
-+ `number` (number, required) - {INT} The number for the account.
-+ `contactFirstName` (string, optional) - The first name of the contact person.
-+ `contactMiddleName` (string, optional) - The middle name of the contact person.
-+ `contactLastName` (string, optional) - The last name of the contact person.
-+ `contactPhoneNumber` (string, optional) - The phone number for the contact person.
-+ `contactEmailAddress` (string, optional) - The email address for the contact person.
++ `name`: Adams Elementary (string, required) - The name of the account.
++ `number`: 10000009 (number, required) - {INT} The number for the account.
++ `contactFirstName`: June (string, optional) - The first name of the contact person.
++ `contactMiddleName`: K. (string, optional) - The middle name of the contact person.
++ `contactLastName`: Aamodt (string, optional) - The last name of the contact person.
++ `contactPhoneNumber`: 9194603431 (string, optional) - The phone number for the contact person.
++ `contactEmailAddress`: jaamodt@dudesolutions.io (string, optional) - The email address for the contact person.
 + `location` (Location, required) - The location for the account.
 + `market` (Market, required) - The market for the account.
-+ `timeZone` (string, required) - The time zone for the account.
++ `timeZone`: America/New_York (string, required) - The time zone for the account.
 + `systemOfRecordAccount` (SystemOfRecordAccount, optional) - The system of record account.
 + `assets` (Product, required) - The collection of assets the account owns.
-+ `createdByUser` (User, optional) - The user who created the object.
-+ `createdDateTime` (string, optional) - The UTC date and time the object was created.
-+ `createdByApiClient` (Base Client, required) - The API Client who created the object.
-+ `updatedByUser` (User, optional) - The user who last updated the object.
-+ `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
-+ `updatedByApiClient` (Base Client, required) - The API Client that last updated the object.
 
 ## Asset Account (object)
 Represents a product account association
@@ -360,42 +362,38 @@ Represents a product account association
 Represents a product
 
 ### Properties
-+ `id` (number, required) - {INT} The unique ID for the product.
-+ `name` (string, required) - The name of the product.
-+ `url` (string, required) - The url for the product.
++ `id`: 1 (number, required) - {INT} The unique ID for the product.
++ `name`: Maintenance MVP (string, required) - The name of the product.
++ `url`: https://mvp.facilitydude.com (string, required) - The url for the product.
 
 ## Location (object)
 Represents a geo-location point
 
 ### Properties
-+ `latitude` (number, optional) - The latitude for the location.
-+ `longitude` (number, optional) - The longitude of the location.
-+ `streetAddress` (string, optional) - The street address for the location.
++ `latitude`: 35.529051 (number, optional) - The latitude for the location.
++ `longitude`: 77.401076 (number, optional) - The longitude of the location.
++ `streetAddress`: PO BOX 1489 (string, optional) - The street address for the location.
 + `streetAddressLine2` (string, optional) - The second, optional line for street address for the location.
-+ `city` (string, required) - The city for the location.
-+ `region` (string, required) - The region for the location.
-+ `postalCode` (string, required) - The postal code for the location.
-+ `country` (string, required) - The country for the location.
++ `city`: WINTERVILLE (string, required) - The city for the location.
++ `region`: NC (string, required) - The region for the location.
++ `postalCode`: 28590-1489 (string, required) - The postal code for the location.
++ `country`: USA (string, required) - The country for the location.
 
-## Market (object)
+## Market (Base Audit)
 Represents a market object
 
 ### Properties
-+ `id` (number, required) - {INT} The unique ID for the market.
-+ `name` (string, required) - The name of the market.
-+ `marketDescription` (string, required) - The description for the market.
-+ `createdByUser` (User, optional) - The user who created the object.
-+ `createdDateTime` (string, optional) - The UTC date and time the object was created.
-+ `updatedByUser` (User, optional) - The user who last updated the object.
-+ `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
++ `id`: 1 (number, required) - {INT} The unique ID for the market.
++ `name`: MFG (string, required) - The name of the market.
++ `marketDescription`: Manufacturing (string, required) - The description for the market.
 
 ## SystemOfRecordAccount (object)
 Represents a system of record account
 
 ### Properties
-+ `accountNumber` (number, required) - {INT} The account number for the system of record.
-+ `sourceAbbreviation` (string, required) - The source abbreviation for the system of record (like SD for School Dude or FD for Facility Dude).
-+ `accountGarden` (string, required) - The account garden from the system of record.
++ `accountNumber`: 1 (number, required) - {INT} The account number for the system of record.
++ `sourceAbbreviation`: SD  (string, required) - The source abbreviation for the system of record (like SD for School Dude or FD for Facility Dude).
++ `accountGarden`: sdgarden (string, required) - The account garden from the system of record.
 
 ## SystemOfRecordUser (object)
 Represents a system of record user
