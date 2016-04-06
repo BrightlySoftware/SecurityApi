@@ -56,8 +56,10 @@ None at this time
 In Progress
 
 # Group System Information
+Check API System Information.
 
-## System Information [/]
+## S.I. Check [/]
+Retrieve api version, vitals, links, etc.
 
 ### GET
 
@@ -65,6 +67,7 @@ In Progress
     + Attributes (System Information)
 
 # Group Heartbeat
+Check health of dependent services.
 
 ## Heartbeat [/heartbeat]
 The heartbeat is exposed and provided to check for availability of the service.
@@ -82,52 +85,54 @@ Any response that does not provide a ```200 OK``` response code should be treate
     + Attributes (Heartbeat)
 
 # Group Account
+Check account endpoints.
 
 ## Account Collection [/accounts/{accountId}{?includeAudit}]
+This collection allows for existing accounts to be found and returned.
 
 + Parameters
-  + accountId: 1234567890 (number, required) - {INT} The Dude Platform account id.
-  + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+    + accountId: 1234567890 (number, required) - {INT} The Dude Platform account id.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
 
 + Response 200 (application/json)
-  + Attributes (Account)
+    + Attributes (Account)
 
 # Group User
+Check user endpoints.
 
-## User Collection [/accounts/{accountId}/users/{id}{?includeAudit}]
+## User Collection [/accounts/{accountId}/users{?includeAudit}]
+This collection returns a list of Dude Platform users for the account.
 
 + Parameters
-  + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
-  + id: 1234567890 (number, required) - {INT} The Dude Platform User Id that represents the user.
-  + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+    + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+
+### GET
++ Response 200 (application/json)
+  + Attributes (array[User])
+
+## User Detail [/accounts/{accountId}/users/{id}{?includeAudit}]
+This endpoint allows for existing users to be found and updated or returned.
+
++ Parameters
+    + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
+    + id: 1234567890 (number, required) - {INT} The Dude Platform User Id that represents the user.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
 
 + Response 200 (application/json)
-  + Attributes (UserDetail)
+    + Attributes (User)
 
 ### PUT
 
-+ Response 201 (application/json)
-  + Attributes (User)
++ Request (application/json)
+    + Attributes (Base User)
 
-### DELETE
-
-+ Response 201
-  + Attributes (User)
-
-## Get Users [/accounts/{accountId}/users{?includeAudit}]
-This endpoint gets a list of Dude Platform users for the account.
-
-+ Parameters
-  + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
-  + includeAudit: true (boolean, optional) - Flag to return audit information from the api
-
-### Get Users [GET]
 + Response 200 (application/json)
-  + Attributes (array[User])
+    + Attributes (User)
 
 # Group Account Products
 
@@ -237,6 +242,9 @@ Any response that does not provide a ```201 Created``` response should be treate
 # Data Structures
 
 ## System Information (object)
+Represents the System Information response.
+
+### Properties
 + `application`: `Dude Security Api` (string, required) - The name of the application.
 + `version` : `1.0.0.0` (string, required) - The assembly version.
 + `apiVersion` : `1.0.0.0` (string, required) - The API version.
@@ -244,6 +252,9 @@ Any response that does not provide a ```201 Created``` response should be treate
 + `links` (array[System Links], required) - The API routes.
 
 ## System Links (object)
+Represents the API routes.
+
+### Properties
 + `endpoint` : `WorkOrder` (string, required) - The name of the endpoint.
 + `action` : `Get` (string, required) - The REST action.
 + `route` : `/accounts/{accountId}/workorders` (string, required) - The route to the endpoint.
@@ -255,6 +266,7 @@ Represents a heartbeat response.
 + `vitalCheck`: true (boolean, required) - Vital check to ensure something is online.
 
 ## Base Collection Response (object)
+Represents a paged object.
 
 ### Properties
 + `page`: 1 (number, required) - {INT} The current page provided in the response data.
@@ -262,31 +274,35 @@ Represents a heartbeat response.
 + `dataSize`: 1000 (number, required) - {INT} The total records returned in the response.
 + `total`: 2000 (number, required) - {INT} The total number of records available in the collection.
 
-## UserDetail (object)
-Represents a UserDetail object
+## Base Audit (object)
++ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The date and time in ISO-8601 format the record was created.
++ `createdByUser` (Base User, optional) - Information about the user who created the record.
++ `createdByApiClient` (Base Client, optional) - Information about the client who created the record.
++ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The date and time in ISO-8601 format the record was last updated.
++ `updatedByUser` (Base User, optional) - Information about the user who last modified the record.
++ `updatedByApiClient` (Base Client, optional) - Information about the client who last modified the record.
+
+## Base User (object)
+Represents a user with base properties.
 
 ### Properties
-+ `id` (number, required) - {INT} The unique ID for the UserDetail.
-+ `firstName` (string, required) - The first name of the user.
-+ `lastName` (string, required) - The last name of the user.
-+ `email` (string, required) - The email address for the user.
++ `id`: 1 (number, required) - {INT} The unique ID that represents the user.
++ `firstName`: John (string, required) - The first name of the user.
++ `lastName`: Smith (string, required) - The last name of the user.
++ `email`: john.smith@dudesolutions.io (string, required) - The email of the user.
+
+## User (Base User)
+Represents a user with all properties included.
+
+### Properties
 + `hourlyRate` (number, optional) - The hourly Rate
 + `phones` (array[UserPhone], optional) - The collection of phone numbers for the user.
-+ `createdByUser` (User, optional) - The user who created the object.
-+ `createdDateTime` (string, optional) - The UTC date and time the object was created.
-+ `createdByApiClient` (ClientInfo, required) - The API Client who created the object.
-+ `updatedByUser` (User, optional) - The user who last updated the object.
-+ `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
-+ `updatedByApiClient` (ClientInfo, required) - The API Client that last updated the object.
-
-## User (object)
-Represents a user.
-
-### Properties
-+ `id` (number, required) - {INT} The unique ID that represents the user.
-+ `firstName` (string, required) - The first name of the user.
-+ `lastName` (string, required) - The last name of the user.
-+ `email` (string, required) - The email of the user.
++ `createdByUser` (Base User, optional) - The user who created the object.
++ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The UTC date and time the object was created.
++ `createdByApiClient` (Base Client, required) - The API Client who created the object.
++ `updatedByUser` (Base User, optional) - The user who last updated the object.
++ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The UTC date and time the object was last updated.
++ `updatedByApiClient` (Base Client, required) - The API Client that last updated the object.
 
 ## UserPhone (object)
 Represents a UserPhone object
@@ -297,17 +313,17 @@ Represents a UserPhone object
 + `number` (string, required) - The number.
 + `extension` (string, optional) - The extension.
 
-## ClientInfo (object)
-Represents the API Client object
+## Base Client (object)
+Represents the API Client object with base properties.
 
 ### Properties
-+ `id` (number, required) - {INT} The unique ID that represents the API client.
++ `id`: 1 (number, required) - {INT} The unique ID that represents the API client.
 
 ## Account (object)
 Represents a Dude Platform account
 
 ### Properties
-+ `id` (number, required) - {INT} The unique ID for the account.
++ `id`: 1 (number, required) - {INT} The unique ID for the account.
 + `name` (string, required) - The name of the account.
 + `number` (number, required) - {INT} The number for the account.
 + `contactFirstName` (string, optional) - The first name of the contact person.
@@ -322,10 +338,10 @@ Represents a Dude Platform account
 + `assets` (Product, required) - The collection of assets the account owns.
 + `createdByUser` (User, optional) - The user who created the object.
 + `createdDateTime` (string, optional) - The UTC date and time the object was created.
-+ `createdByApiClient` (ClientInfo, required) - The API Client who created the object.
++ `createdByApiClient` (Base Client, required) - The API Client who created the object.
 + `updatedByUser` (User, optional) - The user who last updated the object.
 + `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
-+ `updatedByApiClient` (ClientInfo, required) - The API Client that last updated the object.
++ `updatedByApiClient` (Base Client, required) - The API Client that last updated the object.
 
 ## Asset Account (object)
 Represents a product account association
@@ -335,10 +351,10 @@ Represents a product account association
 + `asset` (Product, required) - The product.
 + `createdByUser` (User, optional) - The user who created the object.
 + `createdDateTime` (string, optional) - The UTC date and time the object was created.
-+ `createdByApiClient` (ClientInfo, required) - The API Client who created the object.
++ `createdByApiClient` (Base Client, required) - The API Client who created the object.
 + `updatedByUser` (User, optional) - The user who last updated the object.
 + `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
-+ `updatedByApiClient` (ClientInfo, required) - The API Client that last updated the object.
++ `updatedByApiClient` (Base Client, required) - The API Client that last updated the object.
 
 ## Product (object)
 Represents a product
@@ -390,7 +406,7 @@ Represents a system of record user
 + `userSummaryId` (number, required) - {INT} The dude platform user.
 + `createdByUser` (User, optional) - The user who created the object.
 + `createdDateTime` (string, optional) - The UTC date and time the object was created.
-+ `createdByApiClient` (ClientInfo, required) - The API Client who created the object.
++ `createdByApiClient` (Base Client, required) - The API Client who created the object.
 + `updatedByUser` (User, optional) - The user who last updated the object.
 + `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
-+ `updatedByApiClient` (ClientInfo, required) - The API Client that last updated the object.
++ `updatedByApiClient` (Base Client, required) - The API Client that last updated the object.
