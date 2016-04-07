@@ -69,7 +69,7 @@ Retrieve api version, vitals, links, etc.
 # Group Heartbeat
 Check health of dependent services.
 
-## Heartbeat [/heartbeat]
+## Heartbeat Check [/heartbeat]
 The heartbeat is exposed and provided to check for availability of the service.
 Any response that does not provide a ```200 OK``` response code should be treated as an error.
 
@@ -102,16 +102,21 @@ This endpoint allows for existing accounts to be found by ID and returned.
 # Group User
 Check user endpoints.
 
-## User Collection [/accounts/{accountId}/users{?includeAudit}]
+## User Collection [/accounts/{accountId}/users{?page,pagesize,orderby,includeAudit}]
 This collection returns a list of Dude Platform users for the account.
 
 + Parameters
     + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
     + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
+
 + Response 200 (application/json)
-    + Attributes (array[User])
+    + Attributes (Base Collection Response)
+        + `data` (array[User], required)
 
 ## User Detail [/accounts/{accountId}/users/{id}{?includeAudit}]
 This endpoint allows for existing users to be found and updated or returned.
@@ -137,11 +142,14 @@ This endpoint allows for existing users to be found and updated or returned.
 # Group Account Products
 Check account products endpoints.
 
-## Account Product Collection [/accounts/{accountId}/products{?q}]
+## Account Product Collection [/accounts/{accountId}/products{?page,pagesize,orderby,q,includeAudit}]
 This collection allows new account product associations to be created and for products of existing associations to be returned.
 
 + Parameters
     + accountId: 1234567890 (required, number) - {INT} ID of the account in the form of an integer
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
     + q: Sample (string, optional) - Queries product name containing this value
     + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
@@ -214,7 +222,7 @@ Any response that does not provide a ```200 OK``` response should be treated as 
 + Response 200 (application/json)
     + Attributes (Account)
 
-## Product Detail [/masterdata/products/{productId}{?sourceAbbreviation}]
+## Product Detail [/masterdata/products/{productId}{?sourceAbbreviation,includeAudit}]
 The get product is exposed and provided to return a Dude Platform product from a system of record product id.
 Any response that does not provide a ```200 OK``` response should be treated as an error.
 
