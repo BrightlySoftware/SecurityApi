@@ -320,6 +320,13 @@ Represents a user with all properties included.
 
 ### Properties
 + `hourlyRate`: 25.50 (number, optional) - The hourly Rate
++ `roles` (array[Security Role], required) - The collection of roles associated with the user.  When authenticating against an application, only the roles for the user in the context of that application will be returned.
++ `isActivated`: true (boolean, required) - Indicates if a user has been activated within the platform
++ `isEnabled`: true (boolean, required) - Indicates if the user is able to login to the platform
+
+## User Detail (User)
++ `account` (Account, required) - The account that the user is associated with
++ `permissions` (array[Permission], required) - The list of permissions available to the user based on the current role set
 + `phones` (array[User Phone], optional) - The collection of phone numbers for the user.
 + `createdByUser` (Base User, optional) - The user who created the object.
 + `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The UTC date and time the object was created.
@@ -327,6 +334,11 @@ Represents a user with all properties included.
 + `updatedByUser` (Base User, optional) - The user who last updated the object.
 + `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The UTC date and time the object was last updated.
 + `updatedByApiClient` (Base Client, required) - The API Client that last updated the object.
+
+## User Activation (User Detail)
++ `activationToken`: 721wus922isoa281WDH1 (string, required) - The token that is needed to activate the user
++ `activationExpires`: `2015-01-01T00:00:00.123Z` (string, required) - The time at which the activation token will expire
++ `activationCompleted`: `2015-01-01T00:00:00.123Z` (string, required) - The date the activtion process was completed
 
 ## User Phone (object)
 Represents a user's phone contact information.
@@ -336,6 +348,20 @@ Represents a user's phone contact information.
 + `type`: 1 (number, required) - {INT} The type of the phone record.
 + `number`: 9194593416 (string, required) - The number.
 + `extension`: 3416 (string, optional) - The extension.
+
+## Permission (object)
+Represents the indiviudal privileges that allow specific access to the platform
+
+### Properties
++ `id`: 1 (number, required) - {INT} The unique ID.
++ `name`: WorkOrderCreate (string, required) - The key for the permission
+
+## Security Role (object)
+Represents a user's role within a given application
+
+### Properties
++ `id`: 1 (number, required) - {INT} The unique ID.
++ `roleName`: Administrator (string, required) - The description for the role
 
 ## Account (Api Client Audit)
 Represents a Dude Platform account
