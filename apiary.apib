@@ -159,18 +159,26 @@ This collection allows new account product associations to be created and for pr
     + Attributes (Base Collection Response)
         + data (required, array[Product]) - The Product response collection.
 
+## Account Product Create [/accounts/{accountId}/products]
+This collection allows new account product associations to be created.
+
++ Parameters
+    + accountId: 1234567890 (required, number) - {INT} ID of the account in the form of an integer
+
 ### POST
 
-+ Response 201 (application/json)
++ Request (application/json)
     + Attributes (Base Account Product)
 
-## Account Product Detail [/accounts/{accountId}/products/{id}{?includeAudit}]
++ Response 201 (application/json)
+    + Attributes (Account Product)
+
+## Account Product Detail [/accounts/{accountId}/products/{id}]
 This endpoint allows existing account product associations to be found and returned or removed.
 
 + Parameters
     + accountId: 1234567890 (required, number) - {INT} ID of the account in the form of an integer
     + id: 12345 (required, number) - {INT} ID of the product in the form of an integer
-    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
 
@@ -194,6 +202,7 @@ Any response that does not provide a ```200 OK``` response should be treated as 
     + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
+
 + Response 200 (application/json)
     + Attributes (User)
 
@@ -206,6 +215,7 @@ Any response that does not provide a ```200 OK``` response should be treated as 
     + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
+
 + Response 200 (application/json)
     + Attributes (System Of Record User)
 
@@ -219,6 +229,7 @@ Any response that does not provide a ```200 OK``` response should be treated as 
     + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
+
 + Response 200 (application/json)
     + Attributes (Account)
 
@@ -232,10 +243,11 @@ Any response that does not provide a ```200 OK``` response should be treated as 
     + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
+
 + Response 200 (application/json)
     + Attributes (Product)
 
-## System of Record User Create [/masterdata/{sourceAbbreviation}/users/{userName}/map/{userSummaryId}{?includeAudit}]
+## System of Record User Create [/masterdata/{sourceAbbreviation}/users/{userName}/map/{userSummaryId}]
 The add user system of record map is exposed and provided to create a system of record user map between the Dude Platform user and the system of record user name.
 Any response that does not provide a ```201 Created``` response should be treated as an error.
 
@@ -243,9 +255,9 @@ Any response that does not provide a ```201 Created``` response should be treate
     + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
     + userName: wade41 (string, required) - The user name from the system of record.
     + userSummaryId: 1234567890 (number, required) - {INT} The Dude Platform user to map too.
-    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### POST
+
 + Response 201 (application/json)
     + Attributes (System Of Record User)
 
