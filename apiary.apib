@@ -129,12 +129,12 @@ This endpoint allows for existing users to be found and updated or returned.
 ### GET
 
 + Response 200 (application/json)
-    + Attributes (User)
+    + Attributes (User Detail)
 
 ### PUT
 
 + Request (application/json)
-    + Attributes (Base User)
+    + Attributes (Update User)
 
 + Response 200 (application/json)
     + Attributes (User)
@@ -328,7 +328,7 @@ Represents a user with base properties.
 + `email`: john.smith@dudesolutions.io (string, required) - The email of the user.
 
 ## User (Base User)
-Represents a user with all properties included.
+Represents a user with properties included.
 
 ### Properties
 + `hourlyRate`: 25.50 (number, optional) - The hourly Rate
@@ -336,10 +336,18 @@ Represents a user with all properties included.
 + `isActivated`: true (boolean, required) - Indicates if a user has been activated within the platform
 + `isEnabled`: true (boolean, required) - Indicates if the user is able to login to the platform
 
-## User Detail (User)
-+ `account` (Account, required) - The account that the user is associated with
-+ `permissions` (array[Permission], required) - The list of permissions available to the user based on the current role set
+## Update User (User)
+Represents a user with properties required for a create or update.
+
+### Properties
 + `phones` (array[User Phone], optional) - The collection of phone numbers for the user.
+
+## User Detail (User)
+Represents a user with all properties included.
+
+### Properties
++ `account` (Account, required) - The account that the user is associated with
++ `permissions` (array[Permission], required) - The list of permissions available to the user based on the current role set.
 + `createdByUser` (Base User, optional) - The user who created the object.
 + `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The UTC date and time the object was created.
 + `createdByApiClient` (Base Client, required) - The API Client who created the object.
@@ -348,6 +356,9 @@ Represents a user with all properties included.
 + `updatedByApiClient` (Base Client, required) - The API Client that last updated the object.
 
 ## User Activation (User Detail)
+Represents a user with all properties (including activation info).
+
+### Properties
 + `activationToken`: 721wus922isoa281WDH1 (string, required) - The token that is needed to activate the user
 + `activationExpires`: `2015-01-01T00:00:00.123Z` (string, required) - The time at which the activation token will expire
 + `activationCompleted`: `2015-01-01T00:00:00.123Z` (string, required) - The date the activtion process was completed
