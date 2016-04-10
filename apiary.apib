@@ -318,6 +318,25 @@ Any response that does not provide a ```201 Created``` response should be treate
 + Response 201 (application/json)
     + Attributes (System Of Record User)
 
+# Group Markets
+Provides the ability to interact with the various verticals that the platform supports
+
+## Market Collection [/markets{?page,pagesize,orderby,name,includeAudit}]
+This collection allows new account product associations to be created and for products of existing associations to be returned.
+
++ Parameters
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + name: GOV (string, optional) - Queries market name containing this value
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + data (required, array[Market]) - The Market response collection.
+
 # Data Structures
 
 ## System Information (object)
