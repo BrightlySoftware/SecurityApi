@@ -87,6 +87,17 @@ Any response that does not provide a ```200 OK``` response code should be treate
 # Group Account
 Check account endpoints.
 
+## Account Create [/accounts]
+This endpoint allow for the creation of accounts.
+
+### POST
+
++ Request (application/json)
+    + Attributes (Account)
+
++ Response 201 (application/json)
+    + Attributes (Account)
+
 ## Account Detail [/accounts/{accountId}{?includeAudit}]
 This endpoint allows for existing accounts to be found by ID and returned.
 
@@ -98,6 +109,30 @@ This endpoint allows for existing accounts to be found by ID and returned.
 
 + Response 200 (application/json)
     + Attributes (Account)
+
+### PUT
+
++ Request (application/json)
+    + Attributes (Account)
+
++ Response 200 (application/json)
+    + Attributes (Account)
+
+## Account Me [/accounts/me]
+Retrieves information about the account the token is bound to.  Client credential grants will not be able to successfully call the endpoint.
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Account)
+
+## Account Me Location [/accounts/me/location]
+Retrieves information about the location for the account the token is bound to.  Client credential grants will not be able to successfully call the endpoint.
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Location)
 
 # Group User
 Check user endpoints.
@@ -124,6 +159,21 @@ This collection returns a list of Dude Platform users for the account.
 + Response 200 (application/json)
     + Attributes (Base Collection Response)
         + `data` (array[User], required)
+
+## User Create [/accounts/{accountId}/users{?includeAudit}]
+This collection returns a list of Dude Platform users for the account.
+
++ Parameters
+    + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+
+### POST
+
++ Request (application/json)
+    + Attributes (User Detail)
+
++ Response 201 (application/json)
+    + Attributes (User Activation)
 
 ## User Detail [/accounts/{accountId}/users/{id}{?includeAudit}]
 This endpoint allows for existing users to be found and updated or returned.
