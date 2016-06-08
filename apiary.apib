@@ -1,6 +1,7 @@
 FORMAT: 1A
 HOST: https://www.dudeauth.com
 
+USECOMMONSDKLIBRARY: TRUE
 GENERATEASYNCCODE: TRUE
 GENERATEINTERFACES: TRUE
 USEMETHODPREFIX: TRUE
@@ -54,9 +55,21 @@ None at this time
 ## Documentation Notes
 In Progress
 
-# Group Heartbeat
+# Group System Information
+Check API System Information.
 
-## Heartbeat [/heartbeat]
+## S.I. Check [/]
+Retrieve api version, vitals, links, etc.
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (System Information)
+
+# Group Heartbeat
+Check health of dependent services.
+
+## Heartbeat Check [/heartbeat]
 The heartbeat is exposed and provided to check for availability of the service.
 Any response that does not provide a ```200 OK``` response code should be treated as an error.
 
@@ -71,59 +84,278 @@ Any response that does not provide a ```200 OK``` response code should be treate
 
     + Attributes (Heartbeat)
 
+# Group Account
+Check account endpoints.
+
+## Account Create [/accounts]
+This endpoint allow for the creation of accounts.
+
+### POST
+
++ Request (application/json)
+    + Attributes (Account)
+
++ Response 201 (application/json)
+    + Attributes (Account)
+
+## Account Detail [/accounts/{accountId}{?includeAudit}]
+This endpoint allows for existing accounts to be found by ID and returned.
+
++ Parameters
+    + accountId: 1234567890 (number, required) - {INT} The Dude Platform account id.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Account)
+
+### PUT
+
++ Request (application/json)
+    + Attributes (Account)
+
++ Response 200 (application/json)
+    + Attributes (Account)
+
+## Account Me [/accounts/me]
+Retrieves information about the account the token is bound to.  Client credential grants will not be able to successfully call the endpoint.
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Account)
+
+## Account Me Location [/accounts/me/location]
+Retrieves information about the location for the account the token is bound to.  Client credential grants will not be able to successfully call the endpoint.
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Location)
+
+# Group User
+Check user endpoints.
+
+## User Collection [/accounts/{accountId}/users{?page,pagesize,orderby,includeAudit,q,email,firstName,lastName,isActivated,isEnabled,roles}]
+This collection returns a list of Dude Platform users for the account.
+
++ Parameters
+    + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+    + q (string, optional) - A free form filter mechanism.
+    + email (string, optional) - The user's email.
+    + firstName (string, optional) - The first name of the user.
+    + lastName (string, optional) - The last name of the user.
+    + isActivated: true (boolean, optional) - If the user has been activated.
+    + isEnabled: true (boolean, optional) - If the user has access to login to the platform.
+    + roles (array[number], optional) - {INT} A list of roles that the users may have.
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + `data` (array[User], required)
+
+## User Create [/accounts/{accountId}/users{?includeAudit}]
+This collection returns a list of Dude Platform users for the account.
+
++ Parameters
+    + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+
+### POST
+
++ Request (application/json)
+    + Attributes (User Detail)
+
++ Response 201 (application/json)
+    + Attributes (User Activation)
+
+## User Detail [/accounts/{accountId}/users/{id}{?includeAudit}]
+This endpoint allows for existing users to be found and updated or returned.
+
++ Parameters
+    + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
+    + id: 1234567890 (number, required) - {INT} The Dude Platform User Id that represents the user.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (User Detail)
+
+### PUT
+
++ Request (application/json)
+    + Attributes (Update User)
+
++ Response 200 (application/json)
+    + Attributes (User)
+
+# Group Account Products
+Check account products endpoints.
+
+## Account Product Collection [/accounts/{accountId}/products{?page,pagesize,orderby,q,includeAudit}]
+This collection allows new account product associations to be created and for products of existing associations to be returned.
+
++ Parameters
+    + accountId: 1234567890 (required, number) - {INT} ID of the account in the form of an integer
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + q: Sample (string, optional) - Queries product name containing this value
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + data (required, array[Product]) - The Product response collection.
+
+## Account Product Create [/accounts/{accountId}/products]
+This collection allows new account product associations to be created.
+
++ Parameters
+    + accountId: 1234567890 (required, number) - {INT} ID of the account in the form of an integer
+
+### POST
+
++ Request (application/json)
+    + Attributes (Base Account Product)
+
++ Response 201 (application/json)
+    + Attributes (Account Product)
+
+## Account Product Detail [/accounts/{accountId}/products/{id}]
+This endpoint allows existing account product associations to be found and returned or removed.
+
++ Parameters
+    + accountId: 1234567890 (required, number) - {INT} ID of the account in the form of an integer
+    + id: 12345 (required, number) - {INT} ID of the product in the form of an integer
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Account Product)
+
+### DELETE
+
++ Response 204
+
 # Group Master Data
 The master data collection allows for integration between the Dude Platform and Dude Solutions' other system of records.
 
-## Get User [/masterdata/users/{userName}{?sourceAbbreviation}]
+## User Detail [/masterdata/users/{userName}{?sourceAbbreviation,includeAudit}]
 The get user is exposed and provided to return a Dude Platform user from a system of record user name.
 Any response that does not provide a ```200 OK``` response should be treated as an error.
 
 + Parameters
-  + userName: wade41 (string, required) - The name of the user from the system of record.
-  + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
+    + userName: wade41 (string, required) - The name of the user from the system of record.
+    + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
-### Get User [GET]
+### GET
+
 + Response 200 (application/json)
-    + Attributes (UserDetail)
+    + Attributes (User)
 
-## Get Account [/masterdata/accounts/{accountNumber}{?sourceAbbreviation}]
+## System Of Record User [/masterdata/platformusers/{userId}{?includeAudit}]
+The get system of record user is exposed and provided to return a system of record user from a Dude Platform user.
+Any response that does not provide a ```200 OK``` response should be treated as an error.
+
++ Parameters
+    + userId: 100234 (int, required) - The id of the Dude Platform user.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (System Of Record User)
+
+## Account Detail [/masterdata/accounts/{accountNumber}{?sourceAbbreviation,includeAudit}]
 The get account is exposed and provided to return a Dude Platform account from a system of record account id.
 Any response that does not provide a ```200 OK``` response should be treated as an error.
 
 + Parameters
-  + accountNumber: 1234567890 (string, required) - The account number for the system of record account.
-  + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
+    + accountNumber: 1234567890 (string, required) - {INT} The account number for the system of record account.
+    + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
-### Get Account [GET]
+### GET
+
 + Response 200 (application/json)
-  + Attributes (Account)
+    + Attributes (Account)
 
-## Get Product [/masterdata/products/{productId}{?sourceAbbreviation}]
+## Product Detail [/masterdata/products/{productId}{?sourceAbbreviation,includeAudit}]
 The get product is exposed and provided to return a Dude Platform product from a system of record product id.
 Any response that does not provide a ```200 OK``` response should be treated as an error.
 
 + Parameters
-  + productId: MD (number, required) - The product Id from the system of record.
-  + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
+    + productId: MD (string, required) - The product Id from the system of record.
+    + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
-### Get Product [GET]
+### GET
+
 + Response 200 (application/json)
-    + Attributes (Asset)
+    + Attributes (Product)
 
-## Add User System of Record Map [/masterdata/{sourceAbbreviation}/users/{userName}/map/{userSummaryId}]
+## System of Record User Create [/masterdata/{sourceAbbreviation}/users/{userName}/map/{userSummaryId}]
 The add user system of record map is exposed and provided to create a system of record user map between the Dude Platform user and the system of record user name.
 Any response that does not provide a ```201 Created``` response should be treated as an error.
 
 + Parameters
     + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
     + userName: wade41 (string, required) - The user name from the system of record.
-    + userSummaryId: 1234567890 (number, required) - The Dude Platform user to map too.
+    + userSummaryId: 1234567890 (number, required) - {INT} The Dude Platform user to map too.
 
-### Add User System of Record Map [POST]
+### POST
+
 + Response 201 (application/json)
-    + Attributes (SystemOfRecordUser)
+    + Attributes (System Of Record User)
+
+# Group Markets
+Provides the ability to interact with the various verticals that the platform supports
+
+## Market Collection [/markets{?page,pagesize,orderby,name,includeAudit}]
+This collection allows new account product associations to be created and for products of existing associations to be returned.
+
++ Parameters
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + name: GOV (string, optional) - Queries market name containing this value
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + data (required, array[Market]) - The Market response collection.
 
 # Data Structures
+
+## System Information (object)
+Represents the System Information response.
+
+### Properties
++ `application`: `Dude Security Api` (string, required) - The name of the application.
++ `version` : `1.0.0.0` (string, required) - The assembly version.
++ `apiVersion` : `1.0.0.0` (string, required) - The API version.
++ `vitals` (Heartbeat, required) - The state of the system dependencies.
++ `links` (array[System Links], required) - The API routes.
+
+## System Links (object)
+Represents the API routes.
+
+### Properties
++ `endpoint` : `User` (string, required) - The name of the endpoint.
++ `action` : `Get` (string, required) - The REST action.
++ `route` : `/accounts/{accountId}/users{?includeAudit}` (string, required) - The route to the endpoint.
 
 ## Heartbeat (object)
 Represents a heartbeat response.
@@ -131,122 +363,182 @@ Represents a heartbeat response.
 ### Properties
 + `vitalCheck`: true (boolean, required) - Vital check to ensure something is online.
 
-## UserDetail (object)
-Represents a UserDetail object
+## Base Collection Response (object)
+Represents a paged object.
 
 ### Properties
-+ `id` (number, required) - The unique ID for the UserDetail.
-+ `firstName` (string, required) - The first name of the user.
-+ `lastName` (string, required) - The last name of the user.
-+ `email` (string, required) - The email address for the user.
-+ `hourlyRate` (number, optional) - The hourly Rate
-+ `phones` (UserPhone, required) - The collection of phone numbers for the user.
-+ `createdByUser` (User, optional) - The user who created the object.
-+ `createdDateTime` (string, optional) - The UTC date and time the object was created.
-+ `createdByApiClient` (ClientInfo, required) - The API Client who created the object.
-+ `updatedByUser` (User, optional) - The user who last updated the object.
-+ `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
-+ `updatedByApiClient` (ClientInfo, required) - The API Client that last updated the object.
++ `page`: 1 (number, required) - {INT} The current page provided in the response data.
++ `pageSize`: 1000 (number, required) - {INT} The page size returned in the response data.
++ `dataSize`: 1000 (number, required) - {INT} The total records returned in the response.
++ `total`: 2000 (number, required) - {INT} The total number of records available in the collection.
 
-## User (object)
-Represents a user.
+## Base Audit (object)
+Represents an auditable object with base properties.
 
 ### Properties
-+ `id` (number, required) - The unique ID that represents the user.
-+ `firstName` (string, required) - The first name of the user.
-+ `lastName` (string, required) - The last name of the user.
-+ `email` (string, required) - The email of the user.
++ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The date and time in ISO-8601 format the record was created.
++ `createdByUser` (Base User, optional) - Information about the user who created the record.
++ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The date and time in ISO-8601 format the record was last updated.
++ `updatedByUser` (Base User, optional) - Information about the user who last modified the record.
 
-## UserPhone (object)
-Represents a UserPhone object
-
-### Properties
-+ `id` (number, required) - The unique ID that represents the userPhone.
-+ `type` (number, required) - The type of the phone record.
-+ `number` (string, required) - The number.
-+ `extension` (string, optional) - The extension.
-
-## ClientInfo (object)
-Represents the API Client object
+## Api Client Audit (Base Audit)
+Represents an auditable object with additional fields for api client.
 
 ### Properties
-+ `id` (number, required) - The unique ID that represents the API client.
++ `createdByApiClient` (Base Client, optional) - Information about the client who created the record.
++ `updatedByApiClient` (Base Client, optional) - Information about the client who last modified the record.
 
-## Account (object)
+## Base Client (object)
+Represents the API Client object with base properties.
+
+### Properties
++ `id`: 1 (number, required) - {INT} The unique ID that represents the API client.
+
+## Base User (object)
+Represents a user with base properties.
+
+### Properties
++ `id`: 1 (number, required) - {INT} The unique ID that represents the user.
++ `firstName`: John (string, required) - The first name of the user.
++ `lastName`: Smith (string, required) - The last name of the user.
++ `email`: john.smith@dudesolutions.io (string, required) - The email of the user.
+
+## User (Base User)
+Represents a user with properties included.
+
+### Properties
++ `hourlyRate`: 25.50 (number, optional) - The hourly Rate
++ `roles` (array[Security Role], required) - The collection of roles associated with the user.  When authenticating against an application, only the roles for the user in the context of that application will be returned.
++ `isActivated`: true (boolean, required) - Indicates if a user has been activated within the platform
++ `isEnabled`: true (boolean, required) - Indicates if the user is able to login to the platform
+
+## Update User (User)
+Represents a user with properties required for a create or update.
+
+### Properties
++ `phones` (array[User Phone], optional) - The collection of phone numbers for the user.
+
+## User Detail (User)
+Represents a user with all properties included.
+
+### Properties
++ `account` (Account, required) - The account that the user is associated with
++ `permissions` (array[Permission], required) - The list of permissions available to the user based on the current role set.
++ `createdByUser` (Base User, optional) - The user who created the object.
++ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The UTC date and time the object was created.
++ `createdByApiClient` (Base Client, required) - The API Client who created the object.
++ `updatedByUser` (Base User, optional) - The user who last updated the object.
++ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The UTC date and time the object was last updated.
++ `updatedByApiClient` (Base Client, required) - The API Client that last updated the object.
+
+## User Activation (User Detail)
+Represents a user with all properties (including activation info).
+
+### Properties
++ `activationToken`: 721wus922isoa281WDH1 (string, required) - The token that is needed to activate the user
++ `activationExpires`: `2015-01-01T00:00:00.123Z` (string, required) - The time at which the activation token will expire
++ `activationCompleted`: `2015-01-01T00:00:00.123Z` (string, required) - The date the activtion process was completed
+
+## User Phone (object)
+Represents a user's phone contact information.
+
+### Properties
++ `id`: 1 (number, required) - {INT} The unique ID that represents the user phone.
++ `type`: 1 (number, required) - {INT} The type of the phone record.
++ `number`: 9194593416 (string, required) - The number.
++ `extension`: 3416 (string, optional) - The extension.
+
+## Permission (object)
+Represents the indiviudal privileges that allow specific access to the platform
+
+### Properties
++ `id`: 1 (number, required) - {INT} The unique ID.
++ `name`: WorkOrderCreate (string, required) - The key for the permission
+
+## Security Role (object)
+Represents a user's role within a given application
+
+### Properties
++ `id`: 1 (number, required) - {INT} The unique ID.
++ `roleName`: Administrator (string, required) - The description for the role
+
+## Account (Api Client Audit)
 Represents a Dude Platform account
 
 ### Properties
-+ `id` (number, required) - The unique ID for the account.
-+ `name` (string, required) - The name of the account.
-+ `number` (number, required) - The number for the account.
-+ `contactFirstName` (string, optional) - The first name of the contact person.
-+ `contactMiddleName` (string, optional) - The middle name of the contact person.
-+ `contactLastName` (string, optional) - The last name of the contact person.
-+ `contactPhoneNumber` (string, optional) - The phone number for the contact person.
-+ `contactEmailAddress` (string, optional) - The email address for the contact person.
++ `id`: 1 (number, required) - {INT} The unique ID for the account.
++ `name`: Adams Elementary (string, required) - The name of the account.
++ `number`: 10000009 (number, required) - {INT} The number for the account.
++ `contactFirstName`: June (string, optional) - The first name of the contact person.
++ `contactMiddleName`: K. (string, optional) - The middle name of the contact person.
++ `contactLastName`: Aamodt (string, optional) - The last name of the contact person.
++ `contactPhoneNumber`: 9194603431 (string, optional) - The phone number for the contact person.
++ `contactEmailAddress`: jaamodt@dudesolutions.io (string, optional) - The email address for the contact person.
 + `location` (Location, required) - The location for the account.
 + `market` (Market, required) - The market for the account.
-+ `timeZone` (string, required) - The time zone for the account.
-+ `systemOfRecordAccount` (SystemOfRecordAccount, optional) - The system of record account.
-+ `assets` (Asset, required) - The collection of assets the account owns.
-+ `createdByUser` (User, optional) - The user who created the object.
-+ `createdDateTime` (string, optional) - The UTC date and time the object was created.
-+ `createdByApiClient` (ClientInfo, required) - The API Client who created the object.
-+ `updatedByUser` (User, optional) - The user who last updated the object.
-+ `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
-+ `updatedByApiClient` (ClientInfo, required) - The API Client that last updated the object.
++ `timeZone`: America/New_York (string, required) - The time zone for the account.
++ `systemOfRecordAccount` (System Of Record Account, optional) - The system of record account.
++ `assets` (Product, required) - The collection of assets the account owns.
 
-## Asset (object)
-Represents a product
+## Base Account Product (object)
+Represents a product account association with base properties.
 
 ### Properties
-+ `id` (number, required) - The unique ID for the product.
-+ `name` (string, required) - The name of the product.
-+ `url` (number, required) - The url for the product.
++ `account` (Account, required) - The account.
++ `asset` (Product, required) - The product.
+
+## Account Product (Base Account Product)
+Represents a product account association
+
+### Properties
++ `createdByUser` (Base User, optional) - The user who created the object.
++ `createdDateTime` (string, optional) - The UTC date and time the object was created.
++ `createdByApiClient` (Base Client, required) - The API Client who created the object.
++ `updatedByUser` (Base User, optional) - The user who last updated the object.
++ `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
++ `updatedByApiClient` (Base Client, required) - The API Client that last updated the object.
+
+## Product (object)
+Represents a product.
+
+### Properties
++ `id`: 1 (number, required) - {INT} The unique ID for the product.
++ `name`: Maintenance MVP (string, required) - The name of the product.
++ `url`: https://mvp.facilitydude.com (string, required) - The url for the product.
 
 ## Location (object)
-Represents a geo-location point
+Represents a geo-location point.
 
 ### Properties
-+ `latitude` (number, optional) - The latitude for the location.
-+ `longitude` (number, optional) - The longitude of the location.
-+ `streetAddress` (string, optional) - The street address for the location.
++ `latitude`: 35.529051 (number, optional) - The latitude for the location.
++ `longitude`: 77.401076 (number, optional) - The longitude of the location.
++ `streetAddress`: PO BOX 1489 (string, optional) - The street address for the location.
 + `streetAddressLine2` (string, optional) - The second, optional line for street address for the location.
-+ `city` (string, required) - The city for the location.
-+ `region` (string, required) - The region for the location.
-+ `postalCode` (string, required) - The postal code for the location.
-+ `country` (string, required) - The country for the location.
++ `city`: WINTERVILLE (string, required) - The city for the location.
++ `region`: NC (string, required) - The region for the location.
++ `postalCode`: 28590-1489 (string, required) - The postal code for the location.
++ `country`: USA (string, required) - The country for the location.
 
-## Market (object)
-Represents a market object
-
-### Properties
-+ `id` (number, required) - The unique ID for the market.
-+ `name` (string, required) - The name of the market.
-+ `marketDescription` (string, required) - The description for the market.
-+ `createdByUser` (User, optional) - The user who created the object.
-+ `createdDateTime` (string, optional) - The UTC date and time the object was created.
-+ `updatedByUser` (User, optional) - The user who last updated the object.
-+ `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
-
-## SystemOfRecordAccount (object)
-Represents a system of record account
+## Market (Base Audit)
+Represents a market.
 
 ### Properties
-+ `accountNumber` (number, required) - The account number for the system of record.
-+ `sourceAbbreviation` (string, required) - The source abbreviation for the system of record (like SD for School Dude or FD for Facility Dude).
-+ `accountGarden` (string, required) - The account garden from the system of record.
++ `id`: 1 (number, required) - {INT} The unique ID for the market.
++ `name`: MFG (string, required) - The name of the market.
++ `marketDescription`: Manufacturing (string, required) - The description for the market.
 
-## SystemOfRecordUser (object)
-Represents a system of record user
+## System Of Record Account (object)
+Represents a system of record account.
 
 ### Properties
-+ `userName` (string, required) - The user name for the system of record user.
-+ `sourceAbbreviation` (string, required) - The the source abbreviation for the system of record(like SD for School Dude or FD for Facility Dude).
-+ `userSummaryId` (number, required) - The dude platform user.
-+ `createdByUser` (User, optional) - The user who created the object.
-+ `createdDateTime` (string, optional) - The UTC date and time the object was created.
-+ `createdByApiClient` (ClientInfo, required) - The API Client who created the object.
-+ `updatedByUser` (User, optional) - The user who last updated the object.
-+ `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
-+ `updatedByApiClient` (ClientInfo, required) - The API Client that last updated the object.
++ `accountNumber`: 1 (number, required) - {INT} The account number for the system of record.
++ `sourceAbbreviation`: SD  (string, required) - The source abbreviation for the system of record (like SD for School Dude or FD for Facility Dude).
++ `accountGarden`: sdgarden (string, required) - The account garden from the system of record.
+
+## System Of Record User (Api Client Audit)
+Represents a system of record user.
+
+### Properties
++ `userName`: soruser123 (string, required) - The user name for the system of record user.
++ `sourceAbbreviation`: SD (string, required) - The the source abbreviation for the system of record(like SD for School Dude or FD for Facility Dude).
++ `userSummaryId`: 1 (number, required) - {INT} The dude platform user.
