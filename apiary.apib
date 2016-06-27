@@ -13,6 +13,9 @@ CSHARPDEFAULTNAMESPACE: DSI.SDK.Security
 JAVADEFAULTNAMESPACE: io.dudesolutions.security
 BRANDLABEL: Dude Solutions, Inc.
 USERAGENT: Dude SDK
+NULLIFY404: TRUE
+VALIDATEREQUIREDPARAMETERS: FALSE
+COLLECTPARAMETERS: TRUE
 
 # Dude Security Api
 ![Dude Solutions](https://dudesolutions.com/assets/img/logo.png)
@@ -376,9 +379,9 @@ Represents a paged object.
 Represents an auditable object with base properties.
 
 ### Properties
-+ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The date and time in ISO-8601 format the record was created.
++ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The date and time in ISO-8601 format the record was created.
 + `createdByUser` (Base User, optional) - Information about the user who created the record.
-+ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The date and time in ISO-8601 format the record was last updated.
++ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The date and time in ISO-8601 format the record was last updated.
 + `updatedByUser` (Base User, optional) - Information about the user who last modified the record.
 
 ## Api Client Audit (Base Audit)
@@ -425,10 +428,10 @@ Represents a user with all properties included.
 + `account` (Account, required) - The account that the user is associated with
 + `permissions` (array[Permission], required) - The list of permissions available to the user based on the current role set.
 + `createdByUser` (Base User, optional) - The user who created the object.
-+ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The UTC date and time the object was created.
++ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The UTC date and time the object was created.
 + `createdByApiClient` (Base Client, required) - The API Client who created the object.
 + `updatedByUser` (Base User, optional) - The user who last updated the object.
-+ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The UTC date and time the object was last updated.
++ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The UTC date and time the object was last updated.
 + `updatedByApiClient` (Base Client, required) - The API Client that last updated the object.
 
 ## User Activation (User Detail)
@@ -492,10 +495,10 @@ Represents a product account association
 
 ### Properties
 + `createdByUser` (Base User, optional) - The user who created the object.
-+ `createdDateTime` (string, optional) - The UTC date and time the object was created.
++ `createdDateTime` (string, optional) - {DATETIME} The UTC date and time the object was created.
 + `createdByApiClient` (Base Client, required) - The API Client who created the object.
 + `updatedByUser` (Base User, optional) - The user who last updated the object.
-+ `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
++ `updatedDateTime` (string, optional) - {DATETIME} The UTC date and time the object was last updated.
 + `updatedByApiClient` (Base Client, required) - The API Client that last updated the object.
 
 ## Product (object)
