@@ -320,20 +320,6 @@ Any response that does not provide a ```201 Created``` response should be treate
 
 + Response 201 (application/json)
     + Attributes (System Of Record User)
-    
-## System of Record ApiClient [/masterdata/apiclients/{clientIdentifier}{?sourceAbbreviation,includeAudit}]
-The get system of record api client is exposed and provided to return a Dude Platform api client from a system of record account id.
-Any response that does not provide a ```200 OK``` response should be treated as an error.
-
-+ Parameters
-    + clientIdentifier: abc123 (string, required) - The api client identifier.
-    + sourceAbbreviation: SD (string, required) - The system of record source abbreviation.
-    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
-
-### GET
-
-+ Response 200 (application/json)
-    + Attributes (System Of Record ApiClient)
 
 # Group Markets
 Provides the ability to interact with the various verticals that the platform supports
@@ -353,6 +339,23 @@ This collection allows new account product associations to be created and for pr
 + Response 200 (application/json)
     + Attributes (Base Collection Response)
         + data (required, array[Market]) - The Market response collection.
+        
+# Group API Clients
+Provides information about API Clients.
+
+## System of Record ApiClient [/apiclients/{clientIdentifier}/systemsofrecord/{sourceAbbreviation}{?includeAudit}]
+Gets information about a given API Client and System of Record mapping.
+Any response that does not provide a ```200 OK``` response should be treated as an error.
+
++ Parameters
+    + clientIdentifier: MyClientName (string, required) - The api client identifier.
+    + sourceAbbreviation: SD (string, required) - The system of record source abbreviation.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api.
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (System Of Record ApiClient)
 
 # Data Structures
 
@@ -561,8 +564,8 @@ Represents a system of record user.
 + `userSummaryId`: 1 (number, required) - {INT} The dude platform user.
 
 ## System Of Record ApiClient (Api Client Audit)
-Represents a system of record Api Client
+Represents a mapping between an Api Client and a System of Record.
 
 ### Properties
-+ `apiClientIdentifier`: abc123 (string, required) - The client identifier for the system of record Api Client.
++ `apiClientIdentifier`: abc123 (string, required) - The client identifier for the system of record.
 + `sourceAbbreviation`: SD (string, required) - The source abbreviation for the system of record.
