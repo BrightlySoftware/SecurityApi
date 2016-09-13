@@ -22,7 +22,7 @@ COLLECTPARAMETERS: TRUE
 
 ## Reference
 Good reference document: https://raw.githubusercontent.com/apiaryio/api-blueprint/master/examples/Polls%20API.md
-
+B
 ## Authentication
 *Dude Security Api* uses OAuth v2 Authentication. First you create a new (or acquire existing) OAuth v2 token using [DudeAuth](https://www.dudeauth.com/).
 
@@ -392,6 +392,17 @@ Represents a paged object.
 + `dataSize`: 1000 (number, required) - {INT} The total records returned in the response.
 + `total`: 2000 (number, required) - {INT} The total number of records available in the collection.
 
+## Base Audit Lite (object)
+Represents a light weight audit object with base properties.
+
+### Properties
++ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The date and time in ISO-8601 format the record was created.
++ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The date and time in ISO-8601 format the record was last updated.
++ `createdByUserId` (number, optional) - {INT} User Id that created the record.
++ `updatedByUserId` (number, optional) - {INT} User Id that last modified the record.
++ `createdByApiClientId` (number, required) - {INT} Api Client Id that created the record.
++ `updatedByApiClientId` (number, required) - {INT} Api Client Id that last modified the record.
+
 ## Base Audit (object)
 Represents an auditable object with base properties.
 
@@ -563,7 +574,7 @@ Represents a system of record user.
 + `sourceAbbreviation`: SD (string, required) - The source abbreviation for the system of record (like SD for School Dude or FD for Facility Dude).
 + `userSummaryId`: 1 (number, required) - {INT} The dude platform user.
 
-## System Of Record ApiClient (Api Client Audit)
+## System Of Record ApiClient (Base Audit Lite)
 Represents a mapping between an Api Client and a System of Record.
 
 ### Properties
