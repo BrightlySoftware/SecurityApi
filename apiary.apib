@@ -396,12 +396,12 @@ Represents a paged object.
 Represents a light weight audit object with base properties.
 
 ### Properties
-+ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The date and time in ISO-8601 format the record was created.
-+ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The date and time in ISO-8601 format the record was last updated.
-+ `createdByUserId` (number, optional) - {INT} User Id that created the record.
-+ `updatedByUserId` (number, optional) - {INT} User Id that last modified the record.
-+ `createdByApiClientId` (number, required) - {INT} Api Client Id that created the record.
-+ `updatedByApiClientId` (number, required) - {INT} Api Client Id that last modified the record.
++ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The date and time in ISO-8601 format when the record was created.
++ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The date and time in ISO-8601 format when the record was last updated.
++ `createdByUserId` (number, optional) - {INT} The Id of the User that created the record.
++ `updatedByUserId` (number, optional) - {INT} The Id of the User that last modified the record.
++ `createdByApiClientId` (number, required) - {INT} Id of the Api Client that created the record.
++ `updatedByApiClientId` (number, required) - {INT} Id of the Api Client that last modified the record.
 
 ## Base Audit (object)
 Represents an auditable object with base properties.
