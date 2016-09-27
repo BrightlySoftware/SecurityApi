@@ -137,10 +137,62 @@ Retrieves information about the location for the account the token is bound to. 
 + Response 200 (application/json)
     + Attributes (Location)
 
+# Group Global User
+Global user endpoints.
+
+## Global User Collection [/users{?page,pagesize,orderby,includeAudit,q}]
+This collection returns a list of Dude Platform users for the account.
+
++ Parameters
+    + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+    + q (string, optional) - A free form filter mechanism.
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + `data` (array[User], required)
+
+## Global User Roles Collection [/users/{userId}/roles{?page,pagesize,orderby,includeAudit,q}]
+This collection returns a list of Dude Platform users for the account.
+
++ Parameters
+    + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+    + q (string, optional) - A free form filter mechanism.
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + `data` (array[Security Role], required)
+
+## Global user Roles Detail [/users/{userId}/roles/{id}]
+
++ Parameters
+    + userId: 1 (number, required) - {LONG} ID of the user object who's collection is being referenced
+    + id: 1 (number, required) - {LONG} The ID of the role
+
+### PUT
+
++ Response 200 (application/json)
+    + Attributes (Security Role)
+
+### DELETE
+
++ Response 204
+
 # Group User
 Check user endpoints.
 
-## User Collection [/accounts/{accountId}/users{?page,pagesize,orderby,includeAudit,q,email,firstName,lastName,isActivated,isEnabled,roles}]
+## User Collection [/accounts/{accountId}/users{?page,pagesize,orderby,includeAudit,q,email,firstName,lastName,isActivated,isEnabled,roles,accountNumber,accountId,accountName}]
 This collection returns a list of Dude Platform users for the account.
 
 + Parameters
@@ -156,6 +208,9 @@ This collection returns a list of Dude Platform users for the account.
     + isActivated: true (boolean, optional) - If the user has been activated.
     + isEnabled: true (boolean, optional) - If the user has access to login to the platform.
     + roles (array[number], optional) - {INT} A list of roles that the users may have.
+    + accountNumber (number, optional) - {INT} The account number of the user.
+    + accountId (number, optional) - {INT} The account Id of the user.
+    + accountName (string, optional) - The account name of the user.
 
 ### GET
 
@@ -339,7 +394,7 @@ This collection allows new account product associations to be created and for pr
 + Response 200 (application/json)
     + Attributes (Base Collection Response)
         + data (required, array[Market]) - The Market response collection.
-        
+
 # Group API Clients
 Provides information about API Clients.
 
