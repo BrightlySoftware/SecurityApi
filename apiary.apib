@@ -157,8 +157,8 @@ This collection returns a list of Dude Platform users.
     + Attributes (Base Collection Response)
         + `data` (array[User], required)
 
-## Global User Roles Collection [/users/{userId}/roles{?page,pagesize,orderby,includeAudit,q}]
-This collection returns a list of roles for a user.
+## Global User Roles Collection [/users{?page,pagesize,orderby,includeAudit,q,email,firstName,lastName,isActivated,isEnabled,roles,accountNumber,accountId,accountName}]
+This collection returns a list of Dude Platform users.
 
 + Parameters
     + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
@@ -167,6 +167,15 @@ This collection returns a list of roles for a user.
     + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
     + includeAudit: true (boolean, optional) - Flag to return audit information from the api
     + q (string, optional) - A free form filter mechanism.
+    + email (string, optional) - The user's email.
+    + firstName (string, optional) - The first name of the user.
+    + lastName (string, optional) - The last name of the user.
+    + isActivated: true (boolean, optional) - If the user has been activated.
+    + isEnabled: true (boolean, optional) - If the user has access to login to the platform.
+    + roles (array[number], optional) - {INT} A list of roles that the users may have.
+    + accountNumber (number, optional) - {INT} The account number of the user.
+    + accountId (number, optional) - {INT} The account Id of the user.
+    + accountName (string, optional) - The account name of the user.
 
 ### GET
 
@@ -174,7 +183,7 @@ This collection returns a list of roles for a user.
     + Attributes (Base Collection Response)
         + `data` (array[Security Role], required)
 
-## Global user Roles Detail [/users/{userId}/roles/{id}]
+## Global User Roles Detail [/users/{userId}/roles/{id}]
 
 + Parameters
     + userId: 1 (number, required) - {LONG} ID of the user object who's collection is being referenced
