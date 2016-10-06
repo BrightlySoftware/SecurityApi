@@ -13,6 +13,9 @@ CSHARPDEFAULTNAMESPACE: DSI.SDK.Security
 JAVADEFAULTNAMESPACE: io.dudesolutions.security
 BRANDLABEL: Dude Solutions, Inc.
 USERAGENT: Dude SDK
+NULLIFY404: TRUE
+VALIDATEREQUIREDPARAMETERS: FALSE
+COLLECTPARAMETERS: TRUE
 
 # Dude Security Api
 ![Dude Solutions](https://dudesolutions.com/assets/img/logo.png)
@@ -134,10 +137,71 @@ Retrieves information about the location for the account the token is bound to. 
 + Response 200 (application/json)
     + Attributes (Location)
 
+# Group Global User
+Global user endpoints.
+
+## Global User Collection [/users{?page,pagesize,orderby,includeAudit,q,email,firstName,lastName,isActivated,isEnabled,roles,accountNumber,accountId,accountName}]
+This collection returns a list of Dude Platform users.
+
++ Parameters
+    + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+    + q (string, optional) - A free form filter mechanism.
+    + email (string, optional) - The user's email.
+    + firstName (string, optional) - The first name of the user.
+    + lastName (string, optional) - The last name of the user.
+    + isActivated: true (boolean, optional) - If the user has been activated.
+    + isEnabled: true (boolean, optional) - If the user has access to login to the platform.
+    + roles (array[number], optional) - {INT} A list of roles that the users may have.
+    + accountNumber (number, optional) - {INT} The account number of the user.
+    + accountId (number, optional) - {INT} The account Id of the user.
+    + accountName (string, optional) - The account name of the user.
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + `data` (array[User], required)
+
+## Global User Roles Collection [/users/{userId}/roles{?page,pagesize,orderby,includeAudit,q}]
+This collection returns a list of roles for a user.
+
++ Parameters
+    + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+    + q (string, optional) - A free form filter mechanism.
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + `data` (array[Security Role], required)
+
+## Global User Roles Detail [/users/{userId}/roles/{id}]
+
++ Parameters
+    + userId: 1 (number, required) - {LONG} ID of the user object who's collection is being referenced
+    + id: 1 (number, required) - {LONG} The ID of the role
+
+### PUT
+
++ Response 200 (application/json)
+    + Attributes (Security Role)
+
+### DELETE
+
++ Response 204
+
 # Group User
 Check user endpoints.
 
-## User Collection [/accounts/{accountId}/users{?page,pagesize,orderby,includeAudit,q,email,firstName,lastName,isActivated,isEnabled,roles}]
+## User Collection [/accounts/{accountId}/users{?page,pagesize,orderby,includeAudit,q,email,firstName,lastName,isActivated,isEnabled,roles,accountNumber,accountId,accountName}]
 This collection returns a list of Dude Platform users for the account.
 
 + Parameters
@@ -153,6 +217,9 @@ This collection returns a list of Dude Platform users for the account.
     + isActivated: true (boolean, optional) - If the user has been activated.
     + isEnabled: true (boolean, optional) - If the user has access to login to the platform.
     + roles (array[number], optional) - {INT} A list of roles that the users may have.
+    + accountNumber (number, optional) - {INT} The account number of the user.
+    + accountId (number, optional) - {INT} The account Id of the user.
+    + accountName (string, optional) - The account name of the user.
 
 ### GET
 
@@ -337,6 +404,23 @@ This collection allows new account product associations to be created and for pr
     + Attributes (Base Collection Response)
         + data (required, array[Market]) - The Market response collection.
 
+# Group API Clients
+Provides information about API Clients.
+
+## System of Record ApiClient [/apiclients/{clientIdentifier}/systemsofrecord/{sourceAbbreviation}{?includeAudit}]
+Gets information about a given API Client and System of Record mapping.
+Any response that does not provide a ```200 OK``` response should be treated as an error.
+
++ Parameters
+    + clientIdentifier: MyClientName (string, required) - The api client identifier.
+    + sourceAbbreviation: SD (string, required) - The system of record source abbreviation.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api.
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (System Of Record ApiClient)
+
 # Data Structures
 
 ## System Information (object)
@@ -372,13 +456,30 @@ Represents a paged object.
 + `dataSize`: 1000 (number, required) - {INT} The total records returned in the response.
 + `total`: 2000 (number, required) - {INT} The total number of records available in the collection.
 
+## Audit Info (object)
+Represents a light-weight audit object with base properties.
+
+### Properties
++ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, required) - {DATETIME} The date and time in ISO-8601 format that the record was created.
++ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, required) - {DATETIME} The date and time in ISO-8601 format that the record was last updated.
++ `createdByUserId`: 1 (number, optional) - {INT} The Id of the User who created the record.
++ `updatedByUserId`: 1 (number, optional) - {INT} The Id of the User who last modified the record.
++ `createdByApiClientId`: 1 (number, required) - {INT} The Id of the Api Client that created the record.
++ `updatedByApiClientId`: 1 (number, required) - {INT} The Id of the Api Client that last modified the record.
+
+## Base Audit Lite (object)
+Represents a light-weight audit object.
+
+### Properties
++ `audit` (Audit Info, optional) - Light-weight audit information.
+
 ## Base Audit (object)
 Represents an auditable object with base properties.
 
 ### Properties
-+ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The date and time in ISO-8601 format the record was created.
++ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The date and time in ISO-8601 format the record was created.
 + `createdByUser` (Base User, optional) - Information about the user who created the record.
-+ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The date and time in ISO-8601 format the record was last updated.
++ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The date and time in ISO-8601 format the record was last updated.
 + `updatedByUser` (Base User, optional) - Information about the user who last modified the record.
 
 ## Api Client Audit (Base Audit)
@@ -425,10 +526,10 @@ Represents a user with all properties included.
 + `account` (Account, required) - The account that the user is associated with
 + `permissions` (array[Permission], required) - The list of permissions available to the user based on the current role set.
 + `createdByUser` (Base User, optional) - The user who created the object.
-+ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The UTC date and time the object was created.
++ `createdDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The UTC date and time the object was created.
 + `createdByApiClient` (Base Client, required) - The API Client who created the object.
 + `updatedByUser` (Base User, optional) - The user who last updated the object.
-+ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - The UTC date and time the object was last updated.
++ `updatedDateTime`: `2015-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The UTC date and time the object was last updated.
 + `updatedByApiClient` (Base Client, required) - The API Client that last updated the object.
 
 ## User Activation (User Detail)
@@ -493,10 +594,10 @@ Represents a product account association
 
 ### Properties
 + `createdByUser` (Base User, optional) - The user who created the object.
-+ `createdDateTime` (string, optional) - The UTC date and time the object was created.
++ `createdDateTime` (string, optional) - {DATETIME} The UTC date and time the object was created.
 + `createdByApiClient` (Base Client, required) - The API Client who created the object.
 + `updatedByUser` (Base User, optional) - The user who last updated the object.
-+ `updatedDateTime` (string, optional) - The UTC date and time the object was last updated.
++ `updatedDateTime` (string, optional) - {DATETIME} The UTC date and time the object was last updated.
 + `updatedByApiClient` (Base Client, required) - The API Client that last updated the object.
 
 ## Product (object)
@@ -541,5 +642,12 @@ Represents a system of record user.
 
 ### Properties
 + `userName`: soruser123 (string, required) - The user name for the system of record user.
-+ `sourceAbbreviation`: SD (string, required) - The the source abbreviation for the system of record(like SD for School Dude or FD for Facility Dude).
++ `sourceAbbreviation`: SD (string, required) - The source abbreviation for the system of record (like SD for School Dude or FD for Facility Dude).
 + `userSummaryId`: 1 (number, required) - {INT} The dude platform user.
+
+## System Of Record ApiClient (Base Audit Lite)
+Represents a mapping between an Api Client and a System of Record.
+
+### Properties
++ `apiClientIdentifier`: SystemOfRecordApiIdentifier (string, required) - The client identifier for the system of record.
++ `sourceAbbreviation`: SD (string, required) - The source abbreviation for the system of record.
