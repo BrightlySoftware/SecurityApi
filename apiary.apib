@@ -283,6 +283,22 @@ This collection allows new account product associations to be created and for pr
     + Attributes (Base Collection Response)
         + data (required, array[Product]) - The Product response collection.
 
+## Account Product Full Collection [/accounts/{accountId}/accountproducts{?page,pagesize,orderby,includeAudit}]
+This collection allows new account product associations to be created and for products of existing associations to be returned.
+
++ Parameters
+    + accountId: 1234567890 (required, number) - {INT} ID of the account in the form of an integer
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + data (required, array[Account Product]) - The Account Product response collection.
+
 ## Account Product Create [/accounts/{accountId}/products]
 This collection allows new account product associations to be created.
 
@@ -297,12 +313,13 @@ This collection allows new account product associations to be created.
 + Response 201 (application/json)
     + Attributes (Account Product)
 
-## Account Product Detail [/accounts/{accountId}/products/{id}]
+## Account Product Detail [/accounts/{accountId}/products/{id}{?includeAudit}]
 This endpoint allows existing account product associations to be found and returned or removed.
 
 + Parameters
     + accountId: 1234567890 (required, number) - {INT} ID of the account in the form of an integer
     + id: 12345 (required, number) - {INT} ID of the product in the form of an integer
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
 
