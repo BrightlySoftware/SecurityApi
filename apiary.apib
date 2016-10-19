@@ -382,7 +382,7 @@ Any response that does not provide a ```200 OK``` response should be treated as 
     + productId: MD (string, required) - The product Id from the system of record.
     + sourceAbbreviation: SD (string, required) - The system of record source abbreviation (SD or FD).
     + includeAudit: true (boolean, optional) - Flag to return audit information from the api
-	
+
 ### GET
 
 + Response 200 (application/json)
@@ -402,7 +402,7 @@ This collection returns the list of products
 
 + Response 200 (application/json)
     + Attributes (Base Collection Response)
-		+ data (required, array[Product]) - The Product response collection
+	    + data (required, array[Product]) - The Product response collection
 
 ## System of Record User Create [/masterdata/{sourceAbbreviation}/users/{userName}/map/{userSummaryId}]
 The add user system of record map is exposed and provided to create a system of record user map between the Dude Platform user and the system of record user name.
