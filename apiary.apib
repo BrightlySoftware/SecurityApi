@@ -330,6 +330,55 @@ This endpoint allows existing account product associations to be found and retur
 
 + Response 204
 
+# Group Global Product
+Global product endpoints.
+
+## Product Collection [/products{?page,pagesize,orderby,q,includeAudit}]
+This collection returns the list of products.
+
++ Parameters
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + q: Sample (string, optional) - Queries product name containing this value
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + `data` (array[Product], required) - The Product response collection
+
+## Product Create [/products]
+This collection returns the list of products.
+
+### POST
+
++ Request (application/json)
+    + Attributes (Product)
+
++ Response 201 (application/json)
+    + Attributes (Product)
+
+## Product Detail [/products/{productId}]
+This endpoint allows for existing products to be found, updated, or deleted
+
++ Parameters
+    + productId: 1234 (number, required) - {INT} The Dude Platform Product Id
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Product)
+
+### PUT
+
++ Request (application/json)
+    + Attributes (Product)
+
++ Response 201 (application/json)
+    + Attributes (Product)
+
 # Group Master Data
 The master data collection allows for integration between the Dude Platform and Dude Solutions' other system of records.
 
