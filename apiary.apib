@@ -330,7 +330,8 @@ This endpoint allows existing account product associations to be found and retur
 
 + Response 204
 
-# Group Global Product Endpoints
+# Group Global Product
+Global product endpoints.
 
 ## Product Collection [/products{?page,pagesize,orderby,q,includeAudit}]
 This collection returns the list of products.
@@ -346,7 +347,7 @@ This collection returns the list of products.
 	
 + Response 200 (application/json)
     + Attributes (Base Collection Response)
-	+ data (required, array[Product]) - The Product response collection
+        + `data` (array[Product], required) - The Product response collection
 
 ## Product Create [/products]
 This collection returns the list of products.
@@ -354,10 +355,10 @@ This collection returns the list of products.
 ### POST
 
 + Request (application/json)
-    + Attributes (Product Detail)
+    + Attributes (Product)
 	
 + Response 201 (application/json)
-    + Attributes (Product Detail)
+    + Attributes (Product)
 	
 ## Product Detail [/products/{productId}]
 This endpoint allows for existing products to be found, updated, or deleted
@@ -368,7 +369,7 @@ This endpoint allows for existing products to be found, updated, or deleted
 ### GET
 
 + Response 200 (application/json)
-    + Attributes (Product Detail)
+    + Attributes (Product)
 	
 ### PUT
 
