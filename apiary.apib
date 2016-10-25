@@ -166,11 +166,23 @@ This collection returns a list of Dude Platform users.
     + Attributes (Base Collection Response)
         + `data` (array[User], required)
 
+## Global User Detail [/users/{userId}{?includeAudit}]
+This collection returns a list of Dude Platform users.
+
++ Parameters
+    + userId: 1234567890 (number, required) - {LONG} The Dude Platform user ID.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (User)
+
 ## Global User Roles Collection [/users/{userId}/roles{?page,pagesize,orderby,includeAudit,q}]
 This collection returns a list of roles for a user.
 
 + Parameters
-    + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
+    + userId: 1234567890 (number, required) - {LONG} The Dude Platform user ID.
     + page: 1 (number, optional) - {INT} The page to request from the collection.
     + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
     + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
@@ -201,7 +213,7 @@ This collection returns a list of roles for a user.
 # Group User
 Check user endpoints.
 
-## User Collection [/accounts/{accountId}/users{?page,pagesize,orderby,includeAudit,q,email,firstName,lastName,isActivated,isEnabled,roles,accountNumber,accountId,accountName}]
+## User Collection [/accounts/{accountId}/users{?page,pagesize,orderby,includeAudit,q,email,firstName,lastName,isActivated,isEnabled,roles}]
 This collection returns a list of Dude Platform users for the account.
 
 + Parameters
@@ -217,9 +229,6 @@ This collection returns a list of Dude Platform users for the account.
     + isActivated: true (boolean, optional) - If the user has been activated.
     + isEnabled: true (boolean, optional) - If the user has access to login to the platform.
     + roles (array[number], optional) - {INT} A list of roles that the users may have.
-    + accountNumber (number, optional) - {INT} The account number of the user.
-    + accountId (number, optional) - {INT} The account Id of the user.
-    + accountName (string, optional) - The account name of the user.
 
 ### GET
 
