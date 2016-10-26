@@ -165,11 +165,23 @@ This collection returns a list of Dude Platform users.
     + Attributes (Base Collection Response)
         + `data` (array[User], required)
 
+## Global User Detail [/users/{userId}{?includeAudit}]
+This collection returns a list of Dude Platform users.
+
++ Parameters
+    + userId: 1234567890 (number, required) - {LONG} The Dude Platform user ID.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (User)
+
 ## Global User Roles Collection [/users/{userId}/roles{?page,pagesize,orderby,includeAudit,q}]
 This collection returns a list of roles for a user.
 
 + Parameters
-    + accountId: 1234567890 (number, required) - {INT} The Dude Platform account the user belongs too.
+    + userId: 1234567890 (number, required) - {LONG} The Dude Platform user ID.
     + page: 1 (number, optional) - {INT} The page to request from the collection.
     + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
     + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
@@ -200,7 +212,7 @@ This collection returns a list of roles for a user.
 # Group User
 Check user endpoints.
 
-## User Collection [/accounts/{accountId}/users{?page,pagesize,orderby,includeAudit,q,email,firstName,lastName,isActivated,isEnabled,roles,accountNumber,accountId,accountName}]
+## User Collection [/accounts/{accountId}/users{?page,pagesize,orderby,includeAudit,q,email,firstName,lastName,isActivated,isEnabled,roles}]
 This collection returns a list of Dude Platform users for the account.
 
 + Parameters
@@ -216,9 +228,6 @@ This collection returns a list of Dude Platform users for the account.
     + isActivated: true (boolean, optional) - If the user has been activated.
     + isEnabled: true (boolean, optional) - If the user has access to login to the platform.
     + roles (array[number], optional) - {INT} A list of roles that the users may have.
-    + accountNumber (number, optional) - {INT} The account number of the user.
-    + accountId (number, optional) - {INT} The account Id of the user.
-    + accountName (string, optional) - The account name of the user.
 
 ### GET
 
@@ -282,6 +291,22 @@ This collection allows new account product associations to be created and for pr
     + Attributes (Base Collection Response)
         + data (required, array[Product]) - The Product response collection.
 
+## Account Product Full Collection [/accounts/{accountId}/accountproducts{?page,pagesize,orderby,includeAudit}]
+This collection allows new account product associations to be created and for products of existing associations to be returned.
+
++ Parameters
+    + accountId: 1234567890 (required, number) - {INT} ID of the account in the form of an integer
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + data (required, array[Account Product]) - The Account Product response collection.
+
 ## Account Product Create [/accounts/{accountId}/products]
 This collection allows new account product associations to be created.
 
@@ -296,12 +321,13 @@ This collection allows new account product associations to be created.
 + Response 201 (application/json)
     + Attributes (Account Product)
 
-## Account Product Detail [/accounts/{accountId}/products/{id}]
+## Account Product Detail [/accounts/{accountId}/products/{id}{?includeAudit}]
 This endpoint allows existing account product associations to be found and returned or removed.
 
 + Parameters
     + accountId: 1234567890 (required, number) - {INT} ID of the account in the form of an integer
     + id: 12345 (required, number) - {INT} ID of the product in the form of an integer
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
 
@@ -311,6 +337,55 @@ This endpoint allows existing account product associations to be found and retur
 ### DELETE
 
 + Response 204
+
+# Group Global Product
+Global product endpoints.
+
+## Product Collection [/products{?page,pagesize,orderby,q,includeAudit}]
+This collection returns the list of products.
+
++ Parameters
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + q: Sample (string, optional) - Queries product name containing this value
+    + includeAudit: true (boolean, optional) - Flag to return audit information from the api
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + `data` (array[Product], required) - The Product response collection
+
+## Product Create [/products]
+This collection returns the list of products.
+
+### POST
+
++ Request (application/json)
+    + Attributes (Product)
+
++ Response 201 (application/json)
+    + Attributes (Product)
+
+## Product Detail [/products/{productId}]
+This endpoint allows for existing products to be found, updated, or deleted
+
++ Parameters
+    + productId: 1234 (number, required) - {INT} The Dude Platform Product Id
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Product)
+
+### PUT
+
++ Request (application/json)
+    + Attributes (Product)
+
++ Response 201 (application/json)
+    + Attributes (Product)
 
 # Group Master Data
 The master data collection allows for integration between the Dude Platform and Dude Solutions' other system of records.
@@ -587,6 +662,8 @@ Represents a product account association with base properties.
 + `account` (Account, required) - The account.
 + `asset` (Product, required) - The product.
 + `contact` (Base User, optional) - The main contact for the product.
++ `startDateTime` (string, optional) - {DATETIME} The UTC start date and time.
++ `endDateTime` (string, optional) - {DATETIME} The UTC end date and time.
 
 ## Account Product (Base Account Product)
 Represents a product account association
