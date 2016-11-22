@@ -388,6 +388,25 @@ This endpoint allows for existing products to be found, updated, or deleted
 + Response 201 (application/json)
     + Attributes (Product)
 
+# Group Global Product Roles
+Global product roles endpoints.
+
+## Product Role Collection [/products/{productId}/roles{?page,pagesize,orderby,q}]
+This collection returns the list of roles associated with a given product.
+
++ Parameters
+    + productId: 1 (number, required) - {INT} The ID of the product in the form of an integer.
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pagesize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + q: Admin (string, optional) - Queries role name containing this value
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + `data` (array[Security Role], required) - The Product Security Role response collection
+
 # Group Master Data
 The master data collection allows for integration between the Dude Platform and Dude Solutions' other system of records.
 
