@@ -682,7 +682,7 @@ Represents a product account association with base properties.
 
 ### Properties
 + `account` (Account, required) - The account.
-+ `asset` (Product, required) - The product.
++ `asset` (Product Is Navigable, required) - The product.
 + `contact` (User, optional) - The main contact for the product.
 + `startDateTime` (string, optional) - {DATETIME} The UTC start date and time.
 + `endDateTime` (string, optional) - {DATETIME} The UTC end date and time.
@@ -705,6 +705,12 @@ Represents a product.
 + `id`: 1 (number, required) - {INT} The unique ID for the product.
 + `name`: Maintenance MVP (string, required) - The name of the product.
 + `url`: https://mvp.facilitydude.com (string, required) - The url for the product.
+
+## Product Is Navigable (Product)
+Represents a product with additional information about navigation by session
+
+### Properties
++ `isNavigable`: (boolean, optional) - Indicates whether the product allows the user to access the product without re-entering credentials
 
 ## Location (object)
 Represents a geo-location point.
