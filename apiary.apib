@@ -677,6 +677,7 @@ Represents a Dude Platform account
 + `timeZone`: America/New_York (string, required) - The time zone for the account.
 + `systemOfRecordAccount` (System Of Record Account, optional) - The system of record account.
 + `assets` (Product, required) - The collection of assets the account owns.
++ `fiscalStartDate`: `2017-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The UTC fiscal start date for the account. Required for education accounts.
 
 ## Base Account Product (object)
 Represents a product account association with base properties.
@@ -713,7 +714,7 @@ Represents a product.
 Represents a product with additional information about navigation by session
 
 ### Properties
-+ `isNavigable`: (boolean, optional) - Indicates whether the product allows the user to access the product without re-entering credentials
++ `isNavigable`: true (boolean, optional) - Indicates whether the product allows the user to access the product without re-entering credentials
 
 ## Location (object)
 Represents a geo-location point.
