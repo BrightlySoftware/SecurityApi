@@ -214,7 +214,7 @@ This collection returns a list of roles for a user.
 # Group User
 Check user endpoints.
 
-## User Collection [/accounts/{accountId}/users{?page,pagesize,orderby,includeAudit,q,email,firstName,lastName,isActivated,isEnabled,roles,nameOrEmail}]
+## User Collection [/accounts/{accountId}/users{?page,pagesize,orderby,includeAudit,q,email,firstName,lastName,isActivated,isEnabled,roles,nameOrEmail,updatedDateTimeFrom,updatedDateTimeTo}]
 This collection returns a list of Dude Platform users for the account.
 
 + Parameters
@@ -231,6 +231,8 @@ This collection returns a list of Dude Platform users for the account.
     + isEnabled: true (boolean, optional) - If the user has access to login to the platform.
     + roles (number, optional) - {ARRAY} {INT} A list of roles that the users may have.
     + nameOrEmail (string, optional) - The string representing the first/last name or email search string.
+    + updatedDateTimeFrom: `2015-01-01T00:00:00.000Z` (string, optional) - {DATETIME} Filter by updated date time, starting from.
+    + updatedDateTimeTo: `2016-01-01T00:00:00.000Z` (string, optional) - {DATETIME} Filter by the updated date time, until.
 
 ### GET
 
