@@ -16,8 +16,10 @@ USERAGENT: Dude SDK
 NULLIFY404: TRUE
 VALIDATEREQUIREDPARAMETERS: FALSE
 COLLECTPARAMETERS: TRUE
+ARRAYSERIALIZATION: Plain
 
 # Dude Security Api
+![Dude Solutions](https://dudesolutions.com/assets/img/logo.png)
 
 ## Reference
 Good reference document: https://raw.githubusercontent.com/apiaryio/api-blueprint/master/examples/Polls%20API.md
@@ -154,9 +156,8 @@ This collection returns a list of Dude Platform users.
     + lastName (string, optional) - The last name of the user.
     + isActivated: true (boolean, optional) - If the user has been activated.
     + isEnabled: true (boolean, optional) - If the user has access to login to the platform.
-    + roles (array[number], optional) - {INT} A list of roles that the users may have.
+    + roles (number, optional) - {ARRAY} {INT} A list of roles that the users may have.
     + accountNumber (number, optional) - {INT} The account number of the user.
-    + accountId (number, optional) - {INT} The account Id of the user.
     + accountName (string, optional) - The account name of the user.
     + nameOrEmail (string, optional) - The string representing the first/last name or email search string.
 
@@ -213,7 +214,7 @@ This collection returns a list of roles for a user.
 # Group User
 Check user endpoints.
 
-## User Collection [/accounts/{accountId}/users{?page,pagesize,orderby,includeAudit,q,email,firstName,lastName,isActivated,isEnabled,roles,nameOrEmail}]
+## User Collection [/accounts/{accountId}/users{?page,pagesize,orderby,includeAudit,q,email,firstName,lastName,isActivated,isEnabled,roles,nameOrEmail,updatedDateTimeFrom,updatedDateTimeTo}]
 This collection returns a list of Dude Platform users for the account.
 
 + Parameters
@@ -228,8 +229,10 @@ This collection returns a list of Dude Platform users for the account.
     + lastName (string, optional) - The last name of the user.
     + isActivated: true (boolean, optional) - If the user has been activated.
     + isEnabled: true (boolean, optional) - If the user has access to login to the platform.
-    + roles (array[number], optional) - {INT} A list of roles that the users may have.
+    + roles (number, optional) - {ARRAY} {INT} A list of roles that the users may have.
     + nameOrEmail (string, optional) - The string representing the first/last name or email search string.
+    + updatedDateTimeFrom: `2015-01-01T00:00:00.000Z` (string, optional) - {DATETIME} Filter by updated date time, starting from.
+    + updatedDateTimeTo: `2016-01-01T00:00:00.000Z` (string, optional) - {DATETIME} Filter by the updated date time, until.
 
 ### GET
 
@@ -430,7 +433,7 @@ The get system of record user is exposed and provided to return a system of reco
 Any response that does not provide a ```200 OK``` response should be treated as an error.
 
 + Parameters
-    + userId: 100234 (int, required) - The id of the Dude Platform user.
+    + userId: 100234 (number, required) - {INT} The id of the Dude Platform user.
     + includeAudit: true (boolean, optional) - Flag to return audit information from the api
 
 ### GET
@@ -598,6 +601,7 @@ Represents a user with base properties.
 + `firstName`: John (string, required) - The first name of the user.
 + `lastName`: Smith (string, required) - The last name of the user.
 + `email`: john.smith@dudesolutions.io (string, required) - The email of the user.
++ `isEnabled`: true (boolean, optional) - Indicates if a user is enabled. Defaults to True.
 
 ## User (Base User)
 Represents a user with properties included.
@@ -675,6 +679,7 @@ Represents a Dude Platform account
 + `timeZone`: America/New_York (string, required) - The time zone for the account.
 + `systemOfRecordAccount` (System Of Record Account, optional) - The system of record account.
 + `assets` (Product, required) - The collection of assets the account owns.
++ `fiscalStartDate`: `2017-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The UTC fiscal start date for the account. Required for education accounts.
 
 ## Base Account Product (object)
 Represents a product account association with base properties.
@@ -704,13 +709,14 @@ Represents a product.
 ### Properties
 + `id`: 1 (number, required) - {INT} The unique ID for the product.
 + `name`: Maintenance MVP (string, required) - The name of the product.
++ `displayName`: Maintenance (string, required) - The display name of the product.
 + `url`: https://mvp.facilitydude.com (string, required) - The url for the product.
 
 ## Product Is Navigable (Product)
 Represents a product with additional information about navigation by session
 
 ### Properties
-+ `isNavigable`: (boolean, optional) - Indicates whether the product allows the user to access the product without re-entering credentials
++ `isNavigable`: true (boolean, optional) - Indicates whether the product allows the user to access the product without re-entering credentials
 
 ## Location (object)
 Represents a geo-location point.
