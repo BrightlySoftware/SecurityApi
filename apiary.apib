@@ -684,6 +684,10 @@ Represents a Dude Platform account
 + `systemOfRecordAccount` (System Of Record Account, optional) - The system of record account.
 + `assets` (Product, required) - The collection of assets the account owns.
 + `fiscalStartDate`: `2017-01-01T00:00:00.123Z` (string, optional) - {DATETIME} The UTC fiscal start date for the account. Required for education accounts.
++ `type`: Regular (enum[string], optional) - The account type
+  + `Regular` - Represents a regular account
+  + `Trial` - Represents a trial account
+  + `Test` - Represents a test account
 
 ## Base Account Product (object)
 Represents a product account association with base properties.
