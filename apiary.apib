@@ -523,6 +523,60 @@ Any response that does not provide a ```200 OK``` response should be treated as 
 + Response 200 (application/json)
     + Attributes (System Of Record ApiClient)
 
+
+# Group Alerts
+Alerts endpoints.
+
+## Alert Detail [/accounts/{accountId}/alerts/{id}]
+Gets, Updates, and Deletes the specified alert.
+
++ Parameters
+    + id: A1234Alert (string, required) - The Alert Id
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Alert Update)
+
+### PUT
+
++ Request (application/json)
+    + Attributes (Alert Update)
+
++ Response 201 (application/json)
+    + Attributes (Alert Update)
+
+### DELETE
+
++ Response 204
+
+## Alert Create [/accounts/{accountId}/alerts]
+Create an alert.
+
+### POST
+
++ Request (application/json)
+    + Attributes (Alert)
+
++ Response 201 (application/json)
+    + Attributes (Alert Update)
+
+## Alert Collection [/accounts/{accountId}/alerts{?id,page,pageSize}]
+This collection returns the list of alerts.
+
++ Parameters
+    + accountId: 1234567890 (number, required) - {INT} ID of the account in the form of an integer
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pageSize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + id: A1234Alert (string, optional) - The Alert Id
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + `data` (array[Alert Update], required) - The Alert response collection
+
+
 # Data Structures
 
 ## System Information (object)
@@ -710,6 +764,16 @@ Represents a product account association
 + `updatedByUser` (Base User, optional) - The user who last updated the object.
 + `updatedDateTime` (string, optional) - {DATETIME} The UTC date and time the object was last updated.
 + `updatedByApiClient` (Base Client, required) - The API Client that last updated the object.
+
+## Alert (object)
+Represents a alert.
+
+### Properties
++ `message`: Message text here (string, required) - The actual message to be displayed.
++ `roles` (array[Security Role], required) - The collection of roles associated to display the alert to.
+
+## Alert Update (Alert)
++ `id`: A1234Alert (string, required) - The unique ID for the alert.
 
 ## Product (object)
 Represents a product.
