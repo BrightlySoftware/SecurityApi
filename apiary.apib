@@ -576,6 +576,53 @@ This collection returns the list of alerts.
     + Attributes (Base Collection Response)
         + `data` (array[Alert Update], required) - The Alert response collection
 
+# Group Country
+
+## Country Collection [/countries{?page,pageSize,orderby,q}]
+This collection returns the list of contries.
+
++ Parameters
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pageSize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + q: United States (string, optional) - Queries countries containing this value
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + data (required, array[Country]) - The Country response collection.
+
+# Group Region
+
+## Region Collection [/countries/{countryId}/regions{?page,pageSize,orderby,q}]
+This collection returns the list of regions in the specified country.
+
++ Parameters
+    + countryId: 1234567890 (number, required) - {INT} ID of the country in the form of an integer
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pageSize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + q: Alabama (string, optional) - Queries regions containing this value
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + data (required, array[Region]) - The Region response collection.
+
+# Group Timezone
+
+## Timezone Collection [/timezones{?q}]
+This collection returns the list of timezones.
+
++ Parameters
+    + q: Eastern (string, optional) - Queries regions containing this value
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (array[string])
 
 # Data Structures
 
@@ -833,3 +880,19 @@ Represents a mapping between an Api Client and a System of Record.
 ### Properties
 + `apiClientIdentifier`: SystemOfRecordApiIdentifier (string, required) - The client identifier for the system of record.
 + `sourceAbbreviation`: SD (string, required) - The source abbreviation for the system of record.
+
+## Country
+Represents a country.
+
+### Properties
++ `id`: 1 (number, required) - {INT} The unique ID for the country.
++ `name`: United States of America (string, required) - The name of the country.
++ `abbreviation`: USA (string, required) - The abbreviation of the country name.
+
+## Region
+Represents a region.
+
+### Properties
++ `id`: 1 (number, required) - {INT} The unique ID for the region.
++ `name`: Alabama (string, required) - The name of the region.
++ `abbreviation`: AL (string, required) - The abbreviation of the region name.
