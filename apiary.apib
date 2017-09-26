@@ -523,6 +523,107 @@ Any response that does not provide a ```200 OK``` response should be treated as 
 + Response 200 (application/json)
     + Attributes (System Of Record ApiClient)
 
+
+# Group Alerts
+Alerts endpoints.
+
+## Alert Detail [/accounts/{accountId}/alerts/{id}]
+Gets, Updates, and Deletes the specified alert.
+
++ Parameters
+    + id: A1234Alert (string, required) - The Alert Id
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Alert Update)
+
+### PUT
+
++ Request (application/json)
+    + Attributes (Alert Update)
+
++ Response 201 (application/json)
+    + Attributes (Alert Update)
+
+### DELETE
+
++ Response 204
+
+## Alert Create [/accounts/{accountId}/alerts]
+Create an alert.
+
+### POST
+
++ Request (application/json)
+    + Attributes (Alert)
+
++ Response 201 (application/json)
+    + Attributes (Alert Update)
+
+## Alert Collection [/accounts/{accountId}/alerts{?id,page,pageSize}]
+This collection returns the list of alerts.
+
++ Parameters
+    + accountId: 1234567890 (number, required) - {INT} ID of the account in the form of an integer
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pageSize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + id: A1234Alert (string, optional) - The Alert Id
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + `data` (array[Alert Update], required) - The Alert response collection
+
+# Group Country
+
+## Country Collection [/countries{?page,pageSize,orderby,q}]
+This collection returns the list of contries.
+
++ Parameters
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pageSize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + q: United States (string, optional) - Queries countries containing this value
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + data (required, array[Country]) - The Country response collection.
+
+# Group Region
+
+## Region Collection [/countries/{countryId}/regions{?page,pageSize,orderby,q}]
+This collection returns the list of regions in the specified country.
+
++ Parameters
+    + countryId: 1234567890 (number, required) - {INT} ID of the country in the form of an integer
+    + page: 1 (number, optional) - {INT} The page to request from the collection.
+    + pageSize: 1000 (number, optional) - {INT} The number of records to load in a page from the collection.
+    + orderby: Quantity asc (string, optional) - A string describing the ordering to perform on the collection.
+    + q: Alabama (string, optional) - Queries regions containing this value
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (Base Collection Response)
+        + data (required, array[Region]) - The Region response collection.
+
+# Group Timezone
+
+## Timezone Collection [/timezones{?q}]
+This collection returns the list of timezones.
+
++ Parameters
+    + q: Eastern (string, optional) - Queries regions containing this value
+
+### GET
+
++ Response 200 (application/json)
+    + Attributes (array[string])
+
 # Data Structures
 
 ## System Information (object)
@@ -711,6 +812,16 @@ Represents a product account association
 + `updatedDateTime` (string, optional) - {DATETIME} The UTC date and time the object was last updated.
 + `updatedByApiClient` (Base Client, required) - The API Client that last updated the object.
 
+## Alert (object)
+Represents a alert.
+
+### Properties
++ `message`: Message text here (string, required) - The actual message to be displayed.
++ `roles` (array[Security Role], required) - The collection of roles associated to display the alert to.
+
+## Alert Update (Alert)
++ `id`: A1234Alert (string, required) - The unique ID for the alert.
+
 ## Product (object)
 Represents a product.
 
@@ -769,3 +880,19 @@ Represents a mapping between an Api Client and a System of Record.
 ### Properties
 + `apiClientIdentifier`: SystemOfRecordApiIdentifier (string, required) - The client identifier for the system of record.
 + `sourceAbbreviation`: SD (string, required) - The source abbreviation for the system of record.
+
+## Country
+Represents a country.
+
+### Properties
++ `id`: 1 (number, required) - {INT} The unique ID for the country.
++ `name`: United States of America (string, required) - The name of the country.
++ `abbreviation`: USA (string, required) - The abbreviation of the country name.
+
+## Region
+Represents a region.
+
+### Properties
++ `id`: 1 (number, required) - {INT} The unique ID for the region.
++ `name`: Alabama (string, required) - The name of the region.
++ `abbreviation`: AL (string, required) - The abbreviation of the region name.
